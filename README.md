@@ -29,6 +29,8 @@ FReCS-Net 基于 [LViT](https://github.com/HUANGLIZI/LViT)，学习在图像中�
 
 **本仓库不附带数据集或训练好的分割权重，目前也没有 GitHub Release 权重下载。** 文档中的服务器路径用于记录实验来源，不是公开下载地址。CXR-BERT 是模型使用的文本编码器，它的预训练权重不能替代 FReCS-Net 分割权重。
 
+已有实验的权重与记录保存在 [Hugging Face 归档存储桶](https://huggingface.co/buckets/razaxq/FReCS-Net)。请按实验配置、原始源码版本和文件校验值选择对应模型；这个存储桶是实验归档，不是单一默认权重的发布包。
+
 项目名称已更新为 **FReCS-Net**。下方命令中的 `BETTERLVIT_*` 环境变量、旧输出目录和权重文件名继续使用原标识，以兼容已有实验；无需重命名已有权重。详见[命名与兼容说明](docs/FRECS_NET.md)。
 
 ## 准备运行环境
