@@ -1,6 +1,6 @@
-# FSDR + complete RACE: final paper snapshot
+# FReCS-Net: final paper snapshot
 
-The final model is displayed as **ours**. FSDR replaces PLAM; complete RACE
+**FReCS-Net** combines FSDR and RACE and is displayed as **ours** in comparison figures. FSDR replaces PLAM; RACE
 includes routing and binding-repaired auxiliary supervision as one module.
 
 ## Primary single-cycle cosine comparison
@@ -16,8 +16,8 @@ the fixed Best is evaluated on Test using probability > 0.5, per-image macro.
 |---|---:|---:|
 | LViT-PLAM, neither module | 75.4775 ± 0.0851 | 84.0251 ± 0.0760 |
 | FSDR replacing PLAM, no RACE | 75.9833 ± 0.1511 | 84.5031 ± 0.0755 |
-| PLAM + complete RACE | 75.6962 ± 0.1068 | 84.1928 ± 0.0688 |
-| FSDR + complete RACE (ours) | 76.2262 ± 0.0456 | 84.7112 ± 0.0348 |
+| PLAM + RACE | 75.6962 ± 0.1068 | 84.1928 ± 0.0688 |
+| FSDR + RACE (FReCS-Net / ours) | 76.2262 ± 0.0456 | 84.7112 ± 0.0348 |
 
 Values are mean ± sample SD across all three seeds. The combined model gains
 0.7487 IoU percentage points over the matched PLAM control. This is not a
@@ -58,3 +58,5 @@ hashes of the copied result snapshots. Weights and datasets are not bundled here
 
 FSDR is an alias of the existing implementation; `eppa` state-dict keys and
 historical architecture IDs remain unchanged. See [FSDR](FSDR.md).
+
+The project is named FReCS-Net; its repository is [razaxq/FReCS-Net](https://github.com/razaxq/FReCS-Net). This naming change preserves all original results and runtime identities. See [naming and compatibility](FRECS_NET.md).

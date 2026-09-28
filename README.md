@@ -1,8 +1,10 @@
-# BetterLViT
+# FReCS-Net
 
 **结合胸部 X 光图像与文字描述的医学图像分割研究项目。**
 
-BetterLViT 基于 [LViT](https://github.com/HUANGLIZI/LViT)，学习在图像中标出目标病灶区域。当前完整模型采用 **FSDR + RACE**，主要实验使用 QaTa-COV19-v2 数据集。
+**FReCS-Net**：Frequency Refinement and Evidence Consistency Segmentation Network（频率细化与证据一致性分割网络）。模型名称概括 FSDR 的频率细化与 RACE 的证据一致性；对比图中仍标注为 **ours**。
+
+FReCS-Net 基于 [LViT](https://github.com/HUANGLIZI/LViT)，学习在图像中标出目标病灶区域。当前完整模型采用 **FSDR + RACE**，主要实验使用 QaTa-COV19-v2 数据集。
 
 你可以在这里了解模型效果、准备数据、训练自己的模型，以及评估已有训练权重。当前提供的是 Python 研究代码，需要命令行和 NVIDIA GPU 环境；没有安装即用的桌面应用或网页演示。
 
@@ -25,7 +27,9 @@ BetterLViT 基于 [LViT](https://github.com/HUANGLIZI/LViT)，学习在图像中
 | 训练模型 | NVIDIA GPU、Python 环境，以及图像、分割标注和文字描述 |
 | 评估已有模型 | 上述环境、评估数据，以及与配置和源码版本匹配的分割模型权重 |
 
-**本仓库不附带数据集或训练好的分割权重，目前也没有 GitHub Release 权重下载。** 文档中的服务器路径用于记录实验来源，不是公开下载地址。CXR-BERT 是模型使用的文本编码器，它的预训练权重不能替代 BetterLViT 分割权重。
+**本仓库不附带数据集或训练好的分割权重，目前也没有 GitHub Release 权重下载。** 文档中的服务器路径用于记录实验来源，不是公开下载地址。CXR-BERT 是模型使用的文本编码器，它的预训练权重不能替代 FReCS-Net 分割权重。
+
+项目名称已更新为 **FReCS-Net**。下方命令中的 `BETTERLVIT_*` 环境变量、旧输出目录和权重文件名继续使用原标识，以兼容已有实验；无需重命名已有权重。详见[命名与兼容说明](docs/FRECS_NET.md)。
 
 ## 准备运行环境
 
@@ -36,10 +40,10 @@ BetterLViT 基于 [LViT](https://github.com/HUANGLIZI/LViT)，学习在图像中
 下面以 Conda 和 Python 3.12 为例：
 
 ```bash
-git clone https://github.com/razaxq/BetterLViT.git
-cd BetterLViT
-conda create -n betterlvit python=3.12 -y
-conda activate betterlvit
+git clone https://github.com/razaxq/FReCS-Net.git
+cd FReCS-Net
+conda create -n frecsnet python=3.12 -y
+conda activate frecsnet
 ```
 
 ### 2. 安装依赖
@@ -159,8 +163,8 @@ python tools/export_validation_metrics.py \
 | --- | ---: | ---: |
 | 匹配训练设置的 LViT-PLAM 基线 | 75.4775 ± 0.0851 | 84.0251 ± 0.0760 |
 | 仅 FSDR | 75.9833 ± 0.1511 | 84.5031 ± 0.0755 |
-| PLAM + 完整 RACE | 75.6962 ± 0.1068 | 84.1928 ± 0.0688 |
-| **FSDR + 完整 RACE（BetterLViT）** | **76.2262 ± 0.0456** | **84.7112 ± 0.0348** |
+| PLAM + RACE | 75.6962 ± 0.1068 | 84.1928 ± 0.0688 |
+| **FSDR + RACE（FReCS-Net / ours）** | **76.2262 ± 0.0456** | **84.7112 ± 0.0348** |
 
 指标先逐图计算再取平均（macro），预测阈值为概率 > 0.5。完整模型相对表中匹配基线提升 **0.7487 个 IoU 百分点**；该基线不是未经修改的原版 LViT 官方训练流程。
 
@@ -188,9 +192,10 @@ python tools/export_validation_metrics.py \
 
 | 内容 | 入口 |
 | --- | --- |
+| FReCS-Net 名称与旧权重兼容 | [FRECS_NET.md](docs/FRECS_NET.md) |
 | 最终结果、比较范围与实验来源 | [PAPER_RESULTS.md](docs/PAPER_RESULTS.md) |
 | FSDR 的结构与命名 | [FSDR.md](docs/FSDR.md) |
-| FSDR 与完整 RACE 的四组对照协议 | [STAGE1_OVERALL.md](docs/STAGE1_OVERALL.md) |
+| FSDR 与 RACE 的四组对照协议 | [STAGE1_OVERALL.md](docs/STAGE1_OVERALL.md) |
 | 可用模型配置 | [paper_experiments.py](paper_experiments.py) |
 | 历史实验记录 | [EXPERIMENT_TRACKER.md](docs/EXPERIMENT_TRACKER.md) |
 
