@@ -1,5 +1,9 @@
 # BetterLViT: FSDR + RACE
 
+## Repository scope
+
+This repository shares model code and the configuration and documentation needed to install, use, train, evaluate, and reproduce it. Keep course presentations, thesis manuscripts, defence notes, and their generation scripts and assets outside the repository; do not commit them to GitHub.
+
 ## Final model and paper results
 
 The final model (`ours` in comparison figures) combines **FSDR** (Frequency-aware
