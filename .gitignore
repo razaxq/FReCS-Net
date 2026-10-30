@@ -6,3 +6,23 @@
 /runtime_logs/
 **/__pycache__/
 *.py[cod]
+
+# Private course deliverables belong outside the public code repository.
+/docs/presentations/
+/presentation/
+/presentations/
+/thesis/
+/docs/thesis/
+/coursework/
+/docs/coursework/
+/docs/PAPER_OUTLINE.md
+*.ppt
+*.pptx
+*.pptm
+*.doc
+*.docx
+*.docm
+
+# Local editor settings and private conversation exports.
+/.idea/
+/2026-05-06-120253-eppadicepred-0.txt
