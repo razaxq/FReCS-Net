@@ -1,0 +1,40 @@
+{
+  "prepared": "2026-10-30",
+  "thesis_source_sha256": "9c6be6116935b52e27a30ca3b62c8b211a7c228ed3b85ece176c95436c5ac680",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "0d8fb202c94d61c5360c887c2430d3ab915d2ad2e89af43694157db812856133",
+      "bytes": 93
+    },
+    {
+      "path": "build_prep.py",
+      "sha256": "a7d56408ae155590fc90e9161eda83be168a661639698e3f0cc79625d0ba4e56",
+      "bytes": 9521
+    },
+    {
+      "path": "content.json",
+      "sha256": "e9daa523381e1fd0a0019fdd6ea4ed498386ee3db9c98ea1f911b1d40757c6a0",
+      "bytes": 26042
+    },
+    {
+      "path": "FReCS-Net_15min_Defence_Preparation_20261030.pdf",
+      "sha256": "933bb673013e316cda9b0cfa26e27f9ed22ba8109bbab9d910de2091513ad650",
+      "bytes": 207208
+    },
+    {
+      "path": "README.md",
+      "sha256": "7dc3f1c1b1b5c925d3656372a6518bb67d45e4dad9fe7853ab37b656cb210742",
+      "bytes": 2097
+    },
+    {
+      "path": "source_manifest.json",
+      "sha256": "dde45e9690d30fa6b4360ca068868c232a800c141f3204cebd727f80006e5557",
+      "bytes": 3362
+    }
+  ],
+  "pages": 13,
+  "main_slides": 13,
+  "target_seconds": 860,
+  "qa_questions": 20
+}
