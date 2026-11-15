@@ -35,7 +35,7 @@ FReCS-Net 基于 [LViT](https://github.com/HUANGLIZI/LViT)，学习在图像中�
 
 已有实验的权重与记录保存在 [Hugging Face 归档存储桶](https://huggingface.co/buckets/razaxq/FReCS-Net)。请按实验配置、原始源码版本和文件校验值选择对应模型；这个存储桶是实验归档，不是单一默认权重的发布包。
 
-项目名称已更新为 **FReCS-Net**。下方命令中的 `BETTERLVIT_*` 环境变量、旧输出目录和权重文件名继续使用原标识，以兼容已有实验；无需重命名已有权重。详见[命名与兼容说明](docs/FRECS_NET.md)。
+训练和评估使用 `FRECSNET_*` 环境变量。已有权重可按原实验的源码提交和 SHA-256 定位，详见[模型命名与权重说明](docs/FRECS_NET.md)。
 
 ## 准备运行环境
 
@@ -105,11 +105,11 @@ datasets/
 准备好环境和数据后，下面的示例会启动完整 **FSDR + RACE** 模型，训练 80 个 epoch：
 
 ```bash
-export BETTERLVIT_EXPERIMENT=p8_r2_binding
-export BETTERLVIT_SEED=1219
-export BETTERLVIT_EPOCHS=80
-export BETTERLVIT_BATCH_SIZE=16
-export BETTERLVIT_GIT_COMMIT="$(git rev-parse HEAD)"
+export FRECSNET_EXPERIMENT=p8_r2_binding
+export FRECSNET_SEED=1219
+export FRECSNET_EPOCHS=80
+export FRECSNET_BATCH_SIZE=16
+export FRECSNET_GIT_COMMIT="$(git rev-parse HEAD)"
 export PYTHONHASHSEED=1219
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 
@@ -121,17 +121,17 @@ python train_model.py
 训练输出保存在：
 
 ```text
-Covid19/BetterLViT/p8_r2_binding/<本次训练目录>/
+Covid19/FReCS-Net/p8_r2_binding/<本次训练目录>/
 ├── models/
-│   ├── best_model-BetterLViT.pth.tar
-│   └── last_model-BetterLViT.pth.tar
+│   ├── best_model-FReCS-Net.pth.tar
+│   └── last_model-FReCS-Net.pth.tar
 ├── tensorboard_logs/
 └── …
 ```
 
 `best_model` 是按验证集平均 IoU 选择的权重；`last_model` 是最近一次保存、可用于恢复训练的权重。日志会记录训练进度和验证指标。
 
-需要恢复训练时，在保持原模型配置的前提下，将 `BETTERLVIT_RESUME_PATH` 设为已有的 `last_model-BetterLViT.pth.tar` 路径，再启动训练。恢复过程会创建新的输出目录。
+需要恢复训练时，在保持原模型配置的前提下，将 `FRECSNET_RESUME_PATH` 设为已有的 `last_model-FReCS-Net.pth.tar` 路径，再启动训练。恢复过程会创建新的输出目录。
 
 以上是单次使用示例。论文级复现还需要每次实验独立的源码提交、完整提交编号、实验标签和运行记录，不能仅凭相同配置名认定复现完成。详细要求见[正式实验协议](docs/STAGE1_OVERALL.md)。
 
@@ -144,7 +144,7 @@ Covid19/BetterLViT/p8_r2_binding/<本次训练目录>/
 ```bash
 python tools/export_validation_metrics.py \
   --experiment p8_r2_binding \
-  --checkpoint "Covid19/BetterLViT/p8_r2_binding/<本次训练目录>/models/best_model-BetterLViT.pth.tar" \
+  --checkpoint "Covid19/FReCS-Net/p8_r2_binding/<本次训练目录>/models/best_model-FReCS-Net.pth.tar" \
   --output "outputs/my_validation.json" \
   --batch-size 16 \
   --threshold 0.5 \
@@ -186,7 +186,7 @@ python tools/export_validation_metrics.py \
 
 **可以只下载项目就对自己的图片进行预测吗？** 还需要匹配的训练权重和文字输入。当前入口按数据集组织，评估还需要对应标注；暂未提供上传单张图片的一键预测界面。
 
-**显存不足怎么办？** 可通过 `BETTERLVIT_BATCH_SIZE` 降低训练批大小。这样会改变训练条件，结果应作为自己的实验记录，不能直接当作表中的正式复现。评估批大小由命令中的 `--batch-size` 控制。
+**显存不足怎么办？** 可通过 `FRECSNET_BATCH_SIZE` 降低训练批大小。这样会改变训练条件，结果应作为自己的实验记录，不能直接当作表中的正式复现。评估批大小由命令中的 `--batch-size` 控制。
 
 **提示找不到文字、图像或标注怎么办？** 检查工作目录是否为仓库根目录、数据目录是否为 `datasets/Covid19`、Excel 是否有 `Image` / `Description` 两列，以及表内文件名是否与 `labelcol/` 中的文件完全一致。
 
@@ -198,7 +198,7 @@ python tools/export_validation_metrics.py \
 
 | 内容 | 入口 |
 | --- | --- |
-| FReCS-Net 名称与旧权重兼容 | [FRECS_NET.md](docs/FRECS_NET.md) |
+| FReCS-Net 命名与归档权重 | [FRECS_NET.md](docs/FRECS_NET.md) |
 | 最终结果、比较范围与实验来源 | [PAPER_RESULTS.md](docs/PAPER_RESULTS.md) |
 | FSDR 的结构与命名 | [FSDR.md](docs/FSDR.md) |
 | FSDR 与 RACE 的四组对照协议 | [STAGE1_OVERALL.md](docs/STAGE1_OVERALL.md) |

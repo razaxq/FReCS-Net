@@ -1,8 +1,10 @@
-# BetterLViT 实验台账
+# FReCS-Net 实验台账
 
 更新时间：2026-09-14（Australia/Sydney）
 
 本文件是后续实验配置、Git 溯源、验证结果和推进状态的唯一人工维护台账。停止继续维护 `改动计划.xlsx`；旧工作簿仅作为历史快照保留。
+
+下文的本机输出路径相对于当时的工作区。`{run_checkout}` 和 `{shared_archive}` 分别表示相应运行的源码目录和共享归档目录。原始机器路径可在[归档快照](https://github.com/razaxq/FReCS-Net/tree/e7a1e454d7fcec23711c8ce60fc9a73c552bfb85)中查阅。
 
 ## 记录规则
 
@@ -26,7 +28,7 @@
 
 按用户要求清理系统盘和数据盘。25 个物理历史检查点（35 个含硬链接的文件入口）在 HF 大小/Xet 与本地 SHA256 核验后删除，释放 21,252,653,056 字节；系统盘可用 619,204,608 → 10,019,831,808 字节，数据盘 3,214,114,816 → 15,036,608,512 字节。共享盘实际 18,559,782,256 字节不变，低于 20 GB 上限。86 个保留大文件、80 个有效软链接末检通过。
 
-盘点的 90 个物理检查点全部有已核验 HF 对象：65 个既有备份、25 个本次补传。新增备份在 `razaxq/BetterLViT/storage_cleanup_20260914/`，包括缺失旧模型、源代码/日志、当前数据集和 F/B 缓存、环境包版本与恢复清单。11 个早期检查点没有内嵌 Git SHA，按历史原件保留；另从旁侧 Git 克隆恢复迁移档案的两个已知源 SHA。完整审计包 `storage_cleanup_20260914/audit/f7ae7b7889c37f82/` 已完成 HF 核验。
+盘点的 90 个物理检查点全部有已核验 HF 对象：65 个既有备份、25 个本次补传。新增备份在 `razaxq/FReCS-Net/storage_cleanup_20260914/`，包括缺失旧模型、源代码/日志、当前数据集和 F/B 缓存、环境包版本与恢复清单。11 个早期检查点没有内嵌 Git SHA，按历史原件保留；另从旁侧 Git 克隆恢复迁移档案的两个已知源 SHA。完整审计包 `storage_cleanup_20260914/audit/f7ae7b7889c37f82/` 已完成 HF 核验。
 
 保留 R2/EPPA 基线 Best、RS1/T1/T2/M1/M2 Best/Last、数据集、环境、预训练模型及 F/B 缓存。未运行新的训练或评估，不改变创新点筛选结论。详见 [清理报告与恢复方法](../repro_archive/20260914/server_cleanup/REPORT.md)。
 
@@ -42,7 +44,7 @@ M2已完成80轮训练和1429张Val自动导出，Best67，源`8930f4b39b155d927
 
 M2-R2 IoU -0.0682 pp，分组描述性95%CI[-0.3521,+0.2198] pp；M2-M1 IoU -0.1855 pp，CI[-0.4384,+0.0671] pp，均跨0。M2-R2最小病灶358张IoU -0.7793 pp、Dice -0.7677 pp、Precision -1.7827 pp、Recall +1.5494 pp；总体FP +55995、FN -26705像素。相对M1小病灶IoU -0.6853 pp，总体FP +45830。限制新增值向量来自图像，在此配置下仍未避免预测范围扩大的表现；不能据此确定退化的唯一因果机制。
 
-结果不满足原定发现门，未证明文字锚点的独立收益，也不能声称第二创新点成立。本版本不扩展额外种子、延长训练、调阈值或新增Test，不改预注册门槛。M2已归档至HF `razaxq/BetterLViT/8930f4b3/`，22文件、1694304312字节，双端size/Xet和本地下载核验通过，Best/Last保留；M1此前21文件归档同样完成。冻结判据脚本已执行，八项条件均未通过，最终decision已保存。本批heartbeat已通过原生工具删除并核验配置文件不存在。最近完成快照GPU空闲；没有第三次训练轮询。shared实际18559782256字节，M2归档后scratch可用3214114816字节。单种子Val不能证明所有类似机制无效。 完整收尾资料已另备份至HF `razaxq/BetterLViT/475fa5f7/`：127份复现文件，两个上传对象共1066713字节，云端size/Xet及归档内逐文件SHA256核验通过，不重复上传模型。 [中文完整报告](../repro_archive/20260913/visual_value_regroup/RESULTS_ZH.md)、[冻结判据结果](../repro_archive/20260913/visual_value_regroup/discovery_decision.json)。
+结果不满足原定发现门，未证明文字锚点的独立收益，也不能声称第二创新点成立。本版本不扩展额外种子、延长训练、调阈值或新增Test，不改预注册门槛。M2已归档至HF `razaxq/FReCS-Net/8930f4b3/`，22文件、1694304312字节，双端size/Xet和本地下载核验通过，Best/Last保留；M1此前21文件归档同样完成。冻结判据脚本已执行，八项条件均未通过，最终decision已保存。本批heartbeat已通过原生工具删除并核验配置文件不存在。最近完成快照GPU空闲；没有第三次训练轮询。shared实际18559782256字节，M2归档后scratch可用3214114816字节。单种子Val不能证明所有类似机制无效。 完整收尾资料已另备份至HF `razaxq/FReCS-Net/475fa5f7/`：127份复现文件，两个上传对象共1066713字节，云端size/Xet及归档内逐文件SHA256核验通过，不重复上传模型。 [中文完整报告](../repro_archive/20260913/visual_value_regroup/RESULTS_ZH.md)、[冻结判据结果](../repro_archive/20260913/visual_value_regroup/discovery_decision.json)。
 
 ## 第二创新点执行：M1/M2视觉特征分组候选（2026-09-13）
 
@@ -61,7 +63,7 @@ M1 `04be8e182d8802fb9e529e0a1f6d7cd2e2eb961d`，tag `experiment-m1-regroup-80e-s
 | R2复用 | 72.6654% | 82.4034% | 80.5086% | 88.0502% | 0.02116154 |
 | M1视觉聚合 | 72.7827% | 82.5333% | 80.4997% | 88.3978% | 0.02103743 |
 
-M1-R2 IoU +0.1173 pp，分组描述性95%CI[-0.1469,+0.3871] pp，跨0；Dice +0.1298 pp。最小mask四分位358张、面积<=2075像素，IoU -0.0941 pp、Dice +0.0584 pp。总体FP +10165、FN -17816像素。这是单种子视觉对照，未证明稳定收益；不能归因于新增文字条件，也不是第二创新点成立。M1的排名不决定是否取消M2；按原协议完成备份和发布后仍接续M2。HF `razaxq/BetterLViT/04be8e18/`共21文件、1694302126字节已双端size/Xet核验，本地下载证据也已核验；Best/Last保留。shared18559782256字节、scratch可用4930658304字节。M1 GitHub归档已核验，M2于悉尼2026-09-14 00:33:14.268派发，PID375088，源8930f4b39b155d927c1556f396fb4919ca5c7c94。首检预约00:49并已核验原生heartbeat；按已完成M1实际耗时与预检比值初步预测训练于05:23:37结束，首检后修正。M2首检于悉尼2026-09-14 00:50:55完成并核验：4/80轮结束，日志到第5轮260/357 batch，GPU99%、17404 MiB；冻结源码与manifest匹配、源码干净，日志尾无致命异常，未访问Test。第2至4轮平均218.669116秒，预测训练于05:25:18结束，唯一末检预约05:38并已核验原生heartbeat配置。检查1/2，不在预约前继续轮询；当前为健康快照，不是最终结果。[完整结果](../repro_archive/20260913/visual_value_regroup/m1_results/REPORT.md)、[配对分析](../repro_archive/20260913/visual_value_regroup/m1_results/paired_comparison.json)。
+M1-R2 IoU +0.1173 pp，分组描述性95%CI[-0.1469,+0.3871] pp，跨0；Dice +0.1298 pp。最小mask四分位358张、面积<=2075像素，IoU -0.0941 pp、Dice +0.0584 pp。总体FP +10165、FN -17816像素。这是单种子视觉对照，未证明稳定收益；不能归因于新增文字条件，也不是第二创新点成立。M1的排名不决定是否取消M2；按原协议完成备份和发布后仍接续M2。HF `razaxq/FReCS-Net/04be8e18/`共21文件、1694302126字节已双端size/Xet核验，本地下载证据也已核验；Best/Last保留。shared18559782256字节、scratch可用4930658304字节。M1 GitHub归档已核验，M2于悉尼2026-09-14 00:33:14.268派发，PID375088，源8930f4b39b155d927c1556f396fb4919ca5c7c94。首检预约00:49并已核验原生heartbeat；按已完成M1实际耗时与预检比值初步预测训练于05:23:37结束，首检后修正。M2首检于悉尼2026-09-14 00:50:55完成并核验：4/80轮结束，日志到第5轮260/357 batch，GPU99%、17404 MiB；冻结源码与manifest匹配、源码干净，日志尾无致命异常，未访问Test。第2至4轮平均218.669116秒，预测训练于05:25:18结束，唯一末检预约05:38并已核验原生heartbeat配置。检查1/2，不在预约前继续轮询；当前为健康快照，不是最终结果。[完整结果](../repro_archive/20260913/visual_value_regroup/m1_results/REPORT.md)、[配对分析](../repro_archive/20260913/visual_value_regroup/m1_results/paired_comparison.json)。
 
 M1首检已于悉尼2026-09-13 19:42:22完成并独立核验：4/80轮结束，日志到第5轮160/357 batch；GPU100%、17404 MiB。冻结源码与manifest一致、源码干净，日志尾部无致命异常，未访问Test。此为健康快照，不是正式结果。第2至4轮平均215.057984秒，预测训练于2026-09-14 00:13:13结束，唯一末检预约2026-09-14 00:26，原生heartbeat实际配置已核验。已用检查1/2，首检后不再查询训练状态。详见当前目录m1_first_snapshot.json、m1_first_verified.json及m1_automation_final_verified.json。
 
@@ -83,7 +85,7 @@ M1首检已于悉尼2026-09-13 19:42:22完成并独立核验：4/80轮结束，�
 
 首个诊断尝试因图像/掩码文件名前缀不一致在首个真实Val batch后失败，已保留回执并修正；成功结果来自独立v2执行目录。分析源码`dfaabca6e4c2af4228c8f92690d01ee6865f13ce`，固定模型源`488ef093de80df71ee77741a8c7ee7b938c7d6b5`。[完整诊断](../repro_archive/20260913/t2_intervention/REPORT.md)、[协议](../repro_archive/20260913/t2_intervention/PROTOCOL.md)。
 
-HF `razaxq/BetterLViT/e3b9ab01/` 已备份29份复现资料，两个上传文件共699728字节，路径、大小与Xet哈希双端一致，没有重复上传模型。收尾核验GPU空闲、固定T2源码无修改，shared实际18559782256字节，未删除模型或缓存。[备份核验](../repro_archive/20260913/t2_intervention/hf_upload_verified.json)。
+HF `razaxq/FReCS-Net/e3b9ab01/` 已备份29份复现资料，两个上传文件共699728字节，路径、大小与Xet哈希双端一致，没有重复上传模型。收尾核验GPU空闲、固定T2源码无修改，shared实际18559782256字节，未删除模型或缓存。[备份核验](../repro_archive/20260913/t2_intervention/hf_upload_verified.json)。
 
 ## R2单模型快速IoU验证（2026-09-13）
 
@@ -117,7 +119,7 @@ IoU差值+0.1130 pp，分组描述性95%区间[+0.0401,+0.1840] pp。最小面�
 
 完整协议、冻结计划、源码、部署和下载哈希、逐图整数计数及阈值选择回执均保存在本目录。没有新训练或新checkpoint，因此不复制已有的大型模型文件。
 
-HF备份已完成：razaxq/BetterLViT/4f7561ec/，归档36份复现资料，两个上传文件共700827字节，远端列表、大小与Xet哈希均匹配；没有重复上传模型权重。
+HF备份已完成：razaxq/FReCS-Net/4f7561ec/，归档36份复现资料，两个上传文件共700827字节，远端列表、大小与Xet哈希均匹配；没有重复上传模型权重。
 
 [完整执行与结果](../repro_archive/20260913/rapid_iou/README.md)。
 
@@ -145,11 +147,11 @@ T2首检历史：2026-09-13T07:22:40.049671+10:00确认完成4/80轮，第5轮24
 
 T1完成核验：80轮、Best67，1429张Val的macro IoU **72.5589%**、Dice **82.2939%**；相对R2 IoU -0.1064 pp，Dice -0.1095 pp，IoU分组描述性95%区间[-0.3697,+0.1538] pp。最小面积358张IoU变化-0.5918 pp。末检2026-09-13T06:58:11.863338+10:00，距训练结束625.488秒，检查2/2，半小时内=True。全部轮学习率、Best来源、逐图整数计数与macro均核验；单种子Val不能证明稳定Test增益。详见t1_results/REPORT.md和paired_comparison.json。
 
-T1 HF备份：razaxq/BetterLViT/72295aa3/，21文件、1694294316字节双端size/Xet核验，原Best/Last保留。备份核验时训练盘可用4997881856字节，shared实际18559782256字节。
+T1 HF备份：razaxq/FReCS-Net/72295aa3/，21文件、1694294316字节双端size/Xet核验，原Best/Last保留。备份核验时训练盘可用4997881856字节，shared实际18559782256字节。
 
 T2完成核验：80轮、Best69，1429张Val的macro IoU **72.4663%**、Dice **82.2327%**；相对R2 IoU -0.1990 pp，Dice -0.1707 pp，IoU分组描述性95%区间[-0.5002,+0.1068] pp。最小面积358张IoU变化-1.0053 pp。末检2026-09-13T12:13:12.353477+10:00，距训练结束1067.924秒，检查2/2，半小时内=True。全部轮学习率、Best来源、逐图整数计数与macro均核验；单种子Val不能证明稳定Test增益。详见t2_results/REPORT.md和paired_comparison.json。
 
-T2 HF备份：razaxq/BetterLViT/488ef093/，22文件、1694303992字节双端size/Xet核验，原Best/Last保留。备份核验时训练盘可用3281473536字节，shared实际18559782256字节。
+T2 HF备份：razaxq/FReCS-Net/488ef093/，22文件、1694303992字节双端size/Xet核验，原Best/Last保留。备份核验时训练盘可用3281473536字节，shared实际18559782256字节。
 
 T2提交历史：2026-09-13T07:05:20.153917+10:00提交80轮训练，来源保持冻结的488ef093de80df71ee77741a8c7ee7b938c7d6b5；提交时初估结束2026-09-13T12:02:27.347550+10:00，首次检查预约2026-09-13T07:21:00+10:00。此段保留提交回执与最初预测，后续实测以上述检查快照为准。
 
@@ -159,7 +161,7 @@ T2提交历史：2026-09-13T07:05:20.153917+10:00提交80轮训练，来源保�
 
 本批T0/T1/T2对照已结束：T2−R2 IoU -0.1990 pp，T2−T1 -0.0926 pp，未通过预登记的文字推进方向。继续保留R2；先做冻结分支干预诊断，再决定T3/T4实现。完整三组表、面积分组和证据边界见COMPLETE_REPORT.md；当前没有新训练在运行。
 
-本批原生heartbeat `betterlvit` 已删除，工具回执与本地配置消失已核验，不再重复检查已完成训练。上述首次/末次预约均为历史执行记录。
+本批实验监控任务 已删除，工具回执与本地配置消失已核验，不再重复检查已完成训练。上述首次/末次预约均为历史执行记录。
 
 [完整执行档案](../repro_archive/20260913/text_decoder_controls/README.md)。
 
@@ -169,7 +171,7 @@ T2提交历史：2026-09-13T07:05:20.153917+10:00提交80轮训练，来源保�
 
 RS1本批两组均80轮、各检查2/2、结束后半小时内末检，完整结果和Best/Last已分别在HF短SHA目录双端核验。以下为T1/T2实现前的规格历史记录；当前状态以上方新阶段为准。当时下一阶段已完成六份原R2 Git对象源码核查，拟在`up3`输出`d3`（128×56×56）后、`up2`前设置参数相同的视觉适配器/普通文字注意力对照，再分项研究短语绑定和图像证据控制。当时只有实现规格及源码审计，**尚未实现或训练新候选**，不认领第二创新点。[实现规格草案](../repro_archive/20260912/rs1_iou_replication/TEXT_IMPLEMENTATION_PLAN.md)、[源码接口审计](../repro_archive/20260912/rs1_iou_replication/text_interface_audit.json)。
 
-RS1结束时原生heartbeat `betterlvit` 已暂停并核验为PAUSED；新T1/T2定时以后续新回执为准，不再重复旧实验检查；两组本地state均为complete、检查2/2。后续新训练需单独的源码/预算与预测定时。[监控关闭核验](../repro_archive/20260912/rs1_iou_replication/automation_complete_verified.json)。
+RS1结束时实验监控任务 已暂停并核验为PAUSED；新T1/T2定时以后续新回执为准，不再重复旧实验检查；两组本地state均为complete、检查2/2。后续新训练需单独的源码/预算与预测定时。[监控关闭核验](../repro_archive/20260912/rs1_iou_replication/automation_complete_verified.json)。
 
 **3407已完成并备份：** 80轮及1429张Val导出均完成，Best74，来源`ec3d45cc43710b239e3dadef3f99eb1e2823aa8e`。唯一末检悉尼2026-09-13 00:58:08.233，距训练结束1169.774秒（19.496分钟），检查2/2关闭，符合半小时要求。训练/Val返回码0，来源、manifest、80轮实际学习率、Best选择、逐图计数/宏平均及四次Train诊断状态恢复全部核验；导出与历史选择IoU差−1.787e-9，无需重评，本阶段未访问Test。[完成快照](../repro_archive/20260912/rs1_iou_replication/rs1s3407_final_snapshot.json)、[独立核验](../repro_archive/20260912/rs1_iou_replication/rs1s3407_results/independent_verification.json)。
 
@@ -180,7 +182,7 @@ RS1结束时原生heartbeat `betterlvit` 已暂停并核验为PAUSED；新T1/T2�
 
 RS1−R2 IoU **+0.2753 pp**，分组描述性95%区间[−0.0213,+0.5727] pp；Dice+0.1979 pp、Precision+0.0412 pp、Recall+0.4120 pp、Brier−0.00012819。358张最小面积组IoU+0.2853 pp、Dice+0.2564 pp、Recall+1.6650 pp，但Precision−0.8379 pp、Brier+0.00061179；像素总FP减少21812、FN增加8890，不替代macro口径。[完整结果](../repro_archive/20260912/rs1_iou_replication/rs1s3407_results/REPORT.md)。
 
-HF `razaxq/BetterLViT/ec3d45cc/` 已完成24文件、1,694,476,648字节路径/大小/Xet双端核验；11份下载run产物（2,493,275字节）独立匹配，Best/Last原件保留。训练盘余2,487,640,064字节，fs维持18,559,782,256字节。两个新种子均完整执行，未改系数或按2027结果取消3407；整体判定见后续汇总。[备份核验](../repro_archive/20260912/rs1_iou_replication/rs1s3407_results/hf_upload_verified.json)、[下载核验](../repro_archive/20260912/rs1_iou_replication/rs1s3407_results/download_xet_verified.json)。
+HF `razaxq/FReCS-Net/ec3d45cc/` 已完成24文件、1,694,476,648字节路径/大小/Xet双端核验；11份下载run产物（2,493,275字节）独立匹配，Best/Last原件保留。训练盘余2,487,640,064字节，fs维持18,559,782,256字节。两个新种子均完整执行，未改系数或按2027结果取消3407；整体判定见后续汇总。[备份核验](../repro_archive/20260912/rs1_iou_replication/rs1s3407_results/hf_upload_verified.json)、[下载核验](../repro_archive/20260912/rs1_iou_replication/rs1s3407_results/download_xet_verified.json)。
 
 **3407首检历史：** 悉尼2026-09-12 20:01:00.586确认完成4/80轮、第5轮160/357 batch，GPU99%、显存17,402MiB，来源/manifest一致且跟踪文件干净、日志尾部无致命异常。第2—4轮平均222.361543秒，加120秒余量预测9月13日00:43:08结束，末检预约00:56；实际末检时间和完成状态以上述终态记录为准。[首检与预测](../repro_archive/20260912/rs1_iou_replication/rs1s3407_first_snapshot.json)、[原末检定时](../repro_archive/20260912/rs1_iou_replication/rs1s3407_automation_final_verified.json)。
 
@@ -195,7 +197,7 @@ HF `razaxq/BetterLViT/ec3d45cc/` 已完成24文件、1,694,476,648字节路径/�
 
 RS1−R2 IoU **+0.0185 pp**，1194个可识别患者/文件组的描述性95%区间[−0.2538,+0.2941] pp；Dice−0.0076 pp、Precision−0.2158 pp、Recall+0.2846 pp、Brier−0.00020859。358张最小GT面积组（≤2075像素）IoU−0.4751 pp、Dice−0.4414 pp、Recall+0.5909 pp；像素总FP减少6742、FN减少10068，但不能将这些全局计数代替逐图macro指标。此种子只呈近乎持平的IoU点估计，尚未复现旧1219的明显收益；不以Precision下降单独否决，也不据此取消3407。两新种子的正式整体门需待3407完成后统一判断。[完整报告及配对结果](../repro_archive/20260912/rs1_iou_replication/rs1s2027_results/REPORT.md)。
 
-HF Bucket `razaxq/BetterLViT/758c6c54/` 于悉尼19:43:07.876完成24文件、1,694,459,127字节的路径/大小/Xet双端核验，包含Best/Last、源码、日志、Val及分析；11份下载的静态run产物（2,494,575字节）独立Xet一致，原Best/Last保留。训练盘可用4,202,373,120字节，fs实际18,559,782,256字节。为识别本批独立种子分类，上传器使用本执行目录的专属helper并保留旧helper；未修改训练源或推进门。[云端备份核验](../repro_archive/20260912/rs1_iou_replication/rs1s2027_results/hf_upload_verified.json)、[下载文件核验](../repro_archive/20260912/rs1_iou_replication/rs1s2027_results/download_xet_verified.json)。
+HF Bucket `razaxq/FReCS-Net/758c6c54/` 于悉尼19:43:07.876完成24文件、1,694,459,127字节的路径/大小/Xet双端核验，包含Best/Last、源码、日志、Val及分析；11份下载的静态run产物（2,494,575字节）独立Xet一致，原Best/Last保留。训练盘可用4,202,373,120字节，fs实际18,559,782,256字节。为识别本批独立种子分类，上传器使用本执行目录的专属helper并保留旧helper；未修改训练源或推进门。[云端备份核验](../repro_archive/20260912/rs1_iou_replication/rs1s2027_results/hf_upload_verified.json)、[下载文件核验](../repro_archive/20260912/rs1_iou_replication/rs1s2027_results/download_xet_verified.json)。
 
 **2027首检历史：** 悉尼2026-09-12 14:48:58.095一次短连接确认已完成4/80轮，第5轮进行到日志记录的200/357 batch；GPU100%、显存17,402MiB，日志尾部无致命异常。来源和manifest一致、远端跟踪文件干净；第2—4轮平均217.135353秒，加120秒余量预测19:24:08结束，并将唯一末检安排到19:37。实际完成/末检时间以以上完成记录为准。[首检与实测预测](../repro_archive/20260912/rs1_iou_replication/rs1s2027_first_snapshot.json)、[原末检定时核验](../repro_archive/20260912/rs1_iou_replication/rs1s2027_automation_final_verified.json)。
 
@@ -227,7 +229,7 @@ fine_mass对R2的组配对95%区间为[+0.028009,+0.084504] pp，Precision -0.01
 
 评估源`06c7675a644c818eee77e32730364f7c8767eab1`，tag `test-local-refinement-f-v2-20260912`；模型头训练源仍为`a76e1005d5f4b028f5e991c2cf79564b79e66203`。首次部署因漏依赖在读取Test图像前退出，已保留失败回执；补齐依赖并通过全部模型加载预检后，一次完整Test推理成功。R2的2113图IoU/Dice/Precision/Recall及面积与历史结果精确一致，所有头前后状态不变、逐图计数/转移/候选限制独立核验通过。累计两次收集，最终距完成296.600秒，无持续SSH、无新训练。
 
-本次Test逐图记录、汇总、报告、固定源码及五个文件内的20头已添加至HF Bucket `razaxq/BetterLViT/06c7675a/`，18文件共31,873,724字节，全部大小/Xet哈希核验通过；旧模型和缓存保留。[上传核验](../repro_archive/20260912/local_refinement_test/hf_upload_verified.json)。
+本次Test逐图记录、汇总、报告、固定源码及五个文件内的20头已添加至HF Bucket `razaxq/FReCS-Net/06c7675a/`，18文件共31,873,724字节，全部大小/Xet哈希核验通过；旧模型和缓存保留。[上传核验](../repro_archive/20260912/local_refinement_test/hf_upload_verified.json)。
 
 ## 文字引导方向：F完成，四组未通过推进门（2026-09-12）
 
@@ -325,7 +327,7 @@ RS3 Val IoU **72.8557%**、Dice **82.5468%**；相对R2 IoU **+0.1903 pp**、95%
 
 RS3已在HF Bucket `f7984233/`核验21文件、1,694,438,969字节，11项下载run产物匹配；Best/Last保留，fs18,559,782,256字节、训练盘余2,567,913,472字节。按用户新授权接续文字A诊断，不扩展RS4或150轮。以下首检/提交记录保留为历史，不作为最新状态。
 
-**RS3首次预约检查完成：** 悉尼2026-09-11 17:13:13.659，一次短连接确认完整4/80轮，第5轮至少340/357训练批次，GPU100%、显存17402MiB，来源SHA/manifest一致且跟踪文件干净，日志尾部无异常。第2—4轮平均217.763331秒，加120秒后续诊断余量，预测今天21:47:50训练结束。同一heartbeat `betterlvit` 已改约**22:00唯一末检**并核验实际配置，检查1/2；之后不再中途连接。没有完整RS3结果，未访问Test。[首次检查与预测](../repro_archive/20260911/regional_supervision_execution/rs3_first_snapshot.json)。
+**RS3首次预约检查完成：** 悉尼2026-09-11 17:13:13.659，一次短连接确认完整4/80轮，第5轮至少340/357训练批次，GPU100%、显存17402MiB，来源SHA/manifest一致且跟踪文件干净，日志尾部无异常。第2—4轮平均217.763331秒，加120秒后续诊断余量，预测今天21:47:50训练结束。同一实验监控任务 已改约**22:00唯一末检**并核验实际配置，检查1/2；之后不再中途连接。没有完整RS3结果，未访问Test。[首次检查与预测](../repro_archive/20260911/regional_supervision_execution/rs3_first_snapshot.json)。
 
 **RS3已提交：** 悉尼16:55:06.973提交80轮后台训练，PID261154，来源`f79842331e4e5e41526ed66da31ec174ea4a61b2`，tag `experiment-rs3-regional-80e-seed1219-20260911`。固定λ=0.128312，局部阳性/空背景分组归一化；启动前训练盘余4,284,715,008字节，fs18,559,782,256字节。同一heartbeat首检已约**今天17:11悉尼时间**并核验配置。当前只有提交回执，检查0/2，无完整RS3结果；首轮完成后再作阶段判断。归档流程已包含RS3−RS2配对比较，用于按原计划评估分组独立收益，不改变训练或门槛。[RS3启动](../repro_archive/20260911/regional_supervision_execution/rs3_launch.json)。
 
@@ -341,7 +343,7 @@ RS2−R2 IoU +0.1741个百分点，95%图像配对区间[-0.1181,+0.4575]；最�
 
 RS2已备份至HF `2a389922/`，20文件、1,694,460,839字节大小/Xet双端核验通过，11项本地下载run产物亦匹配。为RS3腾空间，将RS1已备份Last（845,347,135字节）迁至`/root/regional_model_archive/b4dd566a/`，原路径符号链接可访问、Best原位保留；活跃引用审计、Xet/SHA256及检查点加载核验通过。训练盘可用3,439,378,432→4,284,727,296字节，系统盘3,974,262,784→3,128,893,440字节，fs维持18,559,782,256字节；不删除模型。[迁移回执](../repro_archive/20260911/regional_supervision_execution/storage_migration_rs1_last.json)。
 
-**RS2首次预约检查完成：** 悉尼2026-09-11 11:59:42.365，一次短连接确认完整4/80轮，第5轮已进入Val，GPU83%、显存17402MiB，来源SHA/manifest一致且跟踪文件干净，日志尾部无异常。第2—4轮平均216.155973秒，加120秒后续诊断余量，预测今天16:32:12训练结束。同一heartbeat `betterlvit` 已改约**16:45唯一末检**并核验实际配置，检查1/2；之后不再中途连接。尚无完整RS2结果，未访问Test。[首次检查与预测](../repro_archive/20260911/regional_supervision_execution/rs2_first_snapshot.json)。
+**RS2首次预约检查完成：** 悉尼2026-09-11 11:59:42.365，一次短连接确认完整4/80轮，第5轮已进入Val，GPU83%、显存17402MiB，来源SHA/manifest一致且跟踪文件干净，日志尾部无异常。第2—4轮平均216.155973秒，加120秒后续诊断余量，预测今天16:32:12训练结束。同一实验监控任务 已改约**16:45唯一末检**并核验实际配置，检查1/2；之后不再中途连接。尚无完整RS2结果，未访问Test。[首次检查与预测](../repro_archive/20260911/regional_supervision_execution/rs2_first_snapshot.json)。
 
 **RS2已提交：** 悉尼11:41:35.575提交80轮后台训练，PID249881，来源`2a389922cadb31a8bf7660bc33b3cb1ae94f20ab`，tag `experiment-rs2-regional-80e-seed1219-20260911`。56窗口/28步长局部软IoU自然平均，λ=0.128312；提交前训练盘余5,155,667,968字节、fs18,559,782,256字节，满足空间门。同一heartbeat首检改约**今天11:57悉尼时间**并核验配置，当前只有提交回执、检查0/2，无RS2完整结果。RS3等待前组归档后接续；RS1检查2/2已用完，不重复检查。[RS2启动](../repro_archive/20260911/regional_supervision_execution/rs2_launch.json)。
 
@@ -358,9 +360,9 @@ IoU +0.4111个百分点，图像配对95%区间[+0.1181,+0.7023]；Dice +0.3004�
 
 ### 先前启动和首检记录
 
-**RS1首次预约检查完成：** 悉尼2026-09-11 06:35:28.102，一次短连接确认完成4/80轮、正在第5轮，GPU92%、显存17402MiB，来源SHA/manifest一致且跟踪文件干净，无日志尾部异常。第2—4轮平均220.411700秒，加120秒后续诊断余量，预测今天11:14:25训练结束。同一heartbeat `betterlvit` 已改约**11:27唯一末检**，app实际配置核验通过，检查1/2，之后不再中途连接。无完整实验成绩或Test访问。[首检与预测](../repro_archive/20260911/regional_supervision_execution/rs1_first_snapshot.json)。
+**RS1首次预约检查完成：** 悉尼2026-09-11 06:35:28.102，一次短连接确认完成4/80轮、正在第5轮，GPU92%、显存17402MiB，来源SHA/manifest一致且跟踪文件干净，无日志尾部异常。第2—4轮平均220.411700秒，加120秒后续诊断余量，预测今天11:14:25训练结束。同一实验监控任务 已改约**11:27唯一末检**，app实际配置核验通过，检查1/2，之后不再中途连接。无完整实验成绩或Test访问。[首检与预测](../repro_archive/20260911/regional_supervision_execution/rs1_first_snapshot.json)。
 
-**RS1已提交、首检已预约：** 悉尼2026-09-11 06:18:07.393提交80轮后台训练，PID238273，SHA `b4dd566ae472079c55e41cffd7727060bcfd6bf5`，tag `experiment-rs1-regional-80e-seed1219-20260911`。当前仅提交回执，尚未首检确认健康，无完整结果或Test访问，检查预算0/2。当前任务heartbeat `betterlvit` 已实际创建，首检约06:34，app配置与目标thread核验通过；届时据实测轮时改约唯一末检。[启动与预约](../repro_archive/20260911/regional_supervision_execution/rs1_launch.json)。
+**RS1已提交、首检已预约：** 悉尼2026-09-11 06:18:07.393提交80轮后台训练，PID238273，SHA `b4dd566ae472079c55e41cffd7727060bcfd6bf5`，tag `experiment-rs1-regional-80e-seed1219-20260911`。当前仅提交回执，尚未首检确认健康，无完整结果或Test访问，检查预算0/2。当前任务实验监控任务 已实际创建，首检约06:34，app配置与目标thread核验通过；届时据实测轮时改约唯一末检。[启动与预约](../repro_archive/20260911/regional_supervision_execution/rs1_launch.json)。
 
 全部预检通过：11项loss行为、5项阶段门；历史R2五步精确复现，三组初始化/输入一致，各组关闭loss后的正式分组优化器五步与R2逐值一致，插入Train诊断前后亦逐值一致。峰值分配约15.37GiB。RS2 `2a389922cadb31a8bf7660bc33b3cb1ae94f20ab`、RS3 `f79842331e4e5e41526ed66da31ec174ea4a61b2`已冻结部署并推送，尚未提交；按固定顺序归档前组后接续。启动前训练盘余6,872,870,912字节，共享fs18,559,782,256字节，模型保留。
 
@@ -408,7 +410,7 @@ S1−R2 IoU−0.0089个百分点；S2−R2 +0.1893，10000次图像配对bootstr
 
 ## R2视觉辅助监督消融：最终筛选结论（2026-09-11）
 
-**完整归档与定时结束：** S2的20文件、1,698,369,075逻辑字节已添加HF的`7defc637/`并逐文件验证大小/Xet哈希，服务器与独立本地列表一致；连同S1共39文件、3,396,417,612逻辑字节。原Best/Last均保留，训练盘余6,881,239,040字节，共享fs18,559,782,256字节。两组检查均2/2且末检距真实训练结束均不足30分钟；未新增训练或Test，heartbeat `betterlvit` 已确认删除、配置文件不存在。[完成及云端核验证据](../repro_archive/20260910/visual_aux_execution/finalization.json)。
+**完整归档与定时结束：** S2的20文件、1,698,369,075逻辑字节已添加HF的`7defc637/`并逐文件验证大小/Xet哈希，服务器与独立本地列表一致；连同S1共39文件、3,396,417,612逻辑字节。原Best/Last均保留，训练盘余6,881,239,040字节，共享fs18,559,782,256字节。两组检查均2/2且末检距真实训练结束均不足30分钟；未新增训练或Test，实验监控任务 已确认删除、配置文件不存在。[完成及云端核验证据](../repro_archive/20260910/visual_aux_execution/finalization.json)。
 
 **两组均未通过，不扩展：** S2完成80轮，Best75，1429张Val macro IoU **72.7415%**、Dice **82.4575%**。对R2分别+0.0761/+0.0541个百分点，IoU95%图像配对区间[-0.2129,+0.3642]跨0；相对S1 IoU−0.1588个百分点，区间[-0.4633,+0.1433]跨0。R2门与区域增量门均失败；S1此前亦未过门，不进入2027/3407、多种子Test或150轮，不修改冻结系数及阈值。尚未确立第二创新成果。[阶段总结与复算](../repro_archive/20260910/visual_aux_execution/SUMMARY.md)。
 
@@ -422,7 +424,7 @@ S2训练03:36:20.433、Val03:38:03.583完成，03:48:11.268末检（悉尼），
 
 **S2已提交：** S1归档与HF核验推送后，2026-09-10 22:30:42.609（悉尼）提交S2的80轮训练，PID219448，SHA `7defc637e36974fabd0f47763275c90f617e5f53`、tag `experiment-s2-r2-regional-80e-seed1219-20260910`；仅提交回执，检查预算0/2，尚未确认运行健康。保持原定三项监督系数，无Test访问。同一heartbeat已改约今天22:46首检，app配置核验通过；届时依据S2实测轮时预约唯一末检。[执行记录](../repro_archive/20260910/visual_aux_execution/README.md)。
 
-**S1云端归档已核验：** 19文件、1,698,048,537逻辑字节已添加HF Bucket `razaxq/BetterLViT` 的 `1f7edb78/`，包含Best/Last、完整冻结源码、manifest、日志/Val/历史/诊断及对照分析，所有文件大小/Xet哈希在服务器与独立本地列表双重核验；11份本地下载原始文件哈希亦与服务器一致。原模型保留，训练盘可用8,602,071,040字节，共享fs18,559,782,256字节。[云端核验](../repro_archive/20260910/visual_aux_execution/s1_results/hf_upload_verified.json)。
+**S1云端归档已核验：** 19文件、1,698,048,537逻辑字节已添加HF Bucket `razaxq/FReCS-Net` 的 `1f7edb78/`，包含Best/Last、完整冻结源码、manifest、日志/Val/历史/诊断及对照分析，所有文件大小/Xet哈希在服务器与独立本地列表双重核验；11份本地下载原始文件哈希亦与服务器一致。原模型保留，训练盘可用8,602,071,040字节，共享fs18,559,782,256字节。[云端核验](../repro_archive/20260910/visual_aux_execution/s1_results/hf_upload_verified.json)。
 
 **S1完成、筛选未通过：** 80轮，Best67，1429张Val macro IoU **72.9003%**、Dice **82.6077%**，对同seed R2分别+0.2350/+0.2043个百分点。IoU95%图像配对区间[-0.0330,+0.4986]个百分点跨0，未达+0.3门槛；其他5项非退化条件通过。不能称稳定提升，不扩展S1多种子或Test；按预注册仍继续S2。训练22:13:02.833结束，Val22:14:48.068完成，22:19:31.670末检（悉尼），距训练结束388.837秒，检查2/2；80轮LR、Best选择、来源SHA、逐图均值与四次Train诊断不干扰状态均核验通过。HF备份已核验完成。[完整报告](../repro_archive/20260910/visual_aux_execution/s1_results/REPORT.md)。
 
@@ -434,7 +436,7 @@ S2训练03:36:20.433、Val03:38:03.583完成，03:48:11.268末检（悉尼），
 - S2源码 `7defc637e36974fabd0f47763275c90f617e5f53`，tag `experiment-s2-r2-regional-80e-seed1219-20260910`。
 - 两组来源、标签均已推送GitHub，远端跟踪文件干净。
 
-**S1已提交：** 悉尼2026-09-10 17:09:02.700后台提交，PID208088，预算0/2；尚未首检确认健康，无新指标。S2待S1完成归档后接续。当前任务heartbeat `betterlvit` 已实际创建为ACTIVE，首检预约17:25，与app保存配置及目标任务核验一致；首检后按实测轮时更新同一预约至预测结束后约12分钟。[提交及预约记录](../repro_archive/20260910/visual_aux_execution/README.md)。
+**S1已提交：** 悉尼2026-09-10 17:09:02.700后台提交，PID208088，预算0/2；尚未首检确认健康，无新指标。S2待S1完成归档后接续。当前任务实验监控任务 已实际创建为ACTIVE，首检预约17:25，与app保存配置及目标任务核验一致；首检后按实测轮时更新同一预约至预测结束后约12分钟。[提交及预约记录](../repro_archive/20260910/visual_aux_execution/README.md)。
 
 **S1首次预约检查完成：** 2026-09-10 17:25:51.738（悉尼）自动触发的一次短连接确认已完成4/80轮、正在第5轮，GPU93%、显存17,840MiB，来源SHA一致且跟踪文件干净。第2–4轮平均219.600946秒，加四次Train诊断预留120秒，预计今天22:04:23结束；同一heartbeat已改约22:17唯一末检，app实际配置核验通过，预算1/2。无新增Test访问或完整实验成绩，S2待前组归档接续。真实结束至检查的30分钟约束将在末检核对。[首检与预测证据](../repro_archive/20260910/visual_aux_execution/s1_first_snapshot.json)。
 
@@ -464,7 +466,7 @@ C4/C8逐轮LR完全相同、Best均80、Test阈值均0.5，评估脚本只差模
 
 来源 `c749b72db327cd777f63a4b6da4583b301456538`，tag `diagnostic-r2-local-reencode-20260910`。主干状态哈希不变、1429张Val原R2逐图指标差值为0；本地复算summary、8425行计数指标及三组文件名互斥均通过。悉尼15:11:02.919结束、用户15:23:24.172触发唯一末检，间隔741.254秒，检查1/2，符合30分钟要求，无持续SSH。原heartbeat已不存在，删除接口确认为not_found，不把人工触发误记为自动检查。[执行证据](../repro_archive/20260910/local_reencode/execution/README.md)。
 
-两组分支权重、逐图结果、冻结源码及执行材料共27文件、5,748,879逻辑字节已新增至HF Bucket `razaxq/BetterLViT` 的 `c749b72d/local_reencode_v1/`，逐文件大小和Xet哈希核验通过；既有模型未覆盖或删除。[上传核验](../repro_archive/20260910/local_reencode/execution/hf_upload_verified.json)。
+两组分支权重、逐图结果、冻结源码及执行材料共27文件、5,748,879逻辑字节已新增至HF Bucket `razaxq/FReCS-Net` 的 `c749b72d/local_reencode_v1/`，逐文件大小和Xet哈希核验通过；既有模型未覆盖或删除。[上传核验](../repro_archive/20260910/local_reencode/execution/hf_upload_verified.json)。
 
 ## R2 局部语义分歧诊断（2026-09-10）
 
@@ -472,13 +474,13 @@ C4/C8逐轮LR完全相同、Best均80、Test阈值均0.5，评估脚本只差模
 
 **诊断完成，未通过推进门：** 相同20.4082%像素预算下，分歧/不确定性/随机的每图错误捕获率均值为17.2916%/91.0813%/20.4823%；分歧规则实际纠错Val IoU为72.6599%，原R2为72.6654%，变化−0.0055个百分点，95%区间[−0.0210,+0.0105]跨零。9个预注册条件全部失败，不启动该规则的80轮结构实验。两条线性读出本身较弱（Val IoU25.3789%/21.7849%），只能否定本次分歧构造的证据，不能据此否定全部局部编码方向；Oracle不是可实现模型成绩。[完整结果与限制](../repro_archive/20260910/semantic_probe/results/README.md)。
 
-诊断来源 `5f10bb1c4d83372553f204492ffcf3bbfaab782e`，tag `diagnostic-r2-semantic-probe-20260910`；原R2训练来源为 `9eca26de5b301099805530edbf5a1a8718bea662`。6项本地检查与两次真实Train批次8步CUDA预检通过；全流程主干状态哈希不变，1429张Val基线逐图差值为0。独立复算summary及5716项逐块选择/错误捕获核验通过。悉尼05:36:30完成、05:45:34唯一末检，相隔544秒，检查1/2，heartbeat `r2` 已删除，无持续SSH。未访问Test；既有模型保留。[启动与检查证据](../repro_archive/20260910/semantic_probe/execution/README.md)。诊断权重、结果、冻结源码与执行材料共24文件、15,142,978逻辑字节已添加至HF Bucket `razaxq/BetterLViT` 的 `5f10bb1c/semantic_probe_v1/`，逐文件大小和Xet哈希验证通过。[云端核验](../repro_archive/20260910/semantic_probe/execution/hf_upload_verified.json)。
+诊断来源 `5f10bb1c4d83372553f204492ffcf3bbfaab782e`，tag `diagnostic-r2-semantic-probe-20260910`；原R2训练来源为 `9eca26de5b301099805530edbf5a1a8718bea662`。6项本地检查与两次真实Train批次8步CUDA预检通过；全流程主干状态哈希不变，1429张Val基线逐图差值为0。独立复算summary及5716项逐块选择/错误捕获核验通过。悉尼05:36:30完成、05:45:34唯一末检，相隔544秒，检查1/2，heartbeat `r2` 已删除，无持续SSH。未访问Test；既有模型保留。[启动与检查证据](../repro_archive/20260910/semantic_probe/execution/README.md)。诊断权重、结果、冻结源码与执行材料共24文件、15,142,978逻辑字节已添加至HF Bucket `razaxq/FReCS-Net` 的 `5f10bb1c/semantic_probe_v1/`，逐文件大小和Xet哈希验证通过。[云端核验](../repro_archive/20260910/semantic_probe/execution/hf_upload_verified.json)。
 
 ## 最新 Test 结果（2026-09-10）
 
 **项目历史水平的解释更正：** 用户指出R2对旧V4-B没有明显提升。现有证据支持“R2相对配对C4改善”，尚不支持“R2明显超过历史最强EPPA”。旧V4-B固定0.5的Test macro Dice/IoU为84.4562%/75.9546%，Val选阈值0.52后为84.4996%/76.0273%；R2三种子均值（固定0.5）为84.5031%/75.9833%。R2均值对旧V4-B固定0.5仅+0.0469/+0.0287个百分点，对旧校准成绩为+0.0035/−0.0440个百分点。历史A4（LoRA+EPPA）固定0.5为84.4932%/75.9909%，校准0.516为84.5191%/76.0446%。这些是历史分数参考，旧单次结果与R2多种子均值、不同阈值及训练配置不能当成配对消融。
 
-R2的+0.5762个百分点IoU仍是相对C4的三种子配对结论，不追溯更改该实验的预注册判定；它不代表刷新历史最佳，也不构成第二结构创新。后续需同时报告项目历史参考与同训练配方/同种子/同阈值策略的强基线对照，明确是否取得超过既有EPPA水平的实际进展。当前无LoRA约束保持有效，不能为比较而静默改变配置。[旧V4-B原始记录](D:/BetterLViT/BetterLViT/BetterLViT_完整迁移包_2026-08-16/04_模型与结果/EXPERIMENT_RESULTS.md)、[R2三种子结果](../repro_archive/20260910/recipe_test/results/README.md)。
+R2的+0.5762个百分点IoU仍是相对C4的三种子配对结论，不追溯更改该实验的预注册判定；它不代表刷新历史最佳，也不构成第二结构创新。后续需同时报告项目历史参考与同训练配方/同种子/同阈值策略的强基线对照，明确是否取得超过既有EPPA水平的实际进展。当前无LoRA约束保持有效，不能为比较而静默改变配置。旧 V4-B 迁移包中的 `04_模型与结果/EXPERIMENT_RESULTS.md`、[R2三种子结果](../repro_archive/20260910/recipe_test/results/README.md)。
 
 **最终归档完成：** 九组训练归档47文件，加本轮Test产物15文件，总计62文件、15,421,689,106逻辑字节，全部按Git哈希分目录上传HF并校验大小/Xet哈希。17个不同的服务器模型原文件仍存在，大小一致；系统盘余4,005,224,448字节，共享fs18,559,782,256字节，低于20GB硬上限。Test在04:44:16.998（悉尼）结束，05:00:19.107检查，距结束962.110秒，Test检查1次，无新增训练检查。全部完成后已删除本轮heartbeat。新凭据保存在标准HF缓存，Git中不含token。[HF完整核验](../repro_archive/20260910/hf_recovery/results/README.md)。
 
@@ -516,9 +518,9 @@ R2与C4三个匹配种子的六个Test评估全部完成，各2113张、固定�
 
 **C4-2027完成：** 80轮、Best70，1429张Val macro IoU **0.724190**、Dice **0.822864**，固定阈值0.5，未访问Test。训练12:27:33（悉尼）结束，Val导出12:29:31完成，最终检查12:37:40，间隔607.068秒（约10分钟），检查2/2；原始日志、逐图结果、80轮LR及Best/Last来源全部核验。这里只记录seed2027对照，待R2-2027完成再作同种子配对；接续原注册队列。[完整结果与来源](../repro_archive/20260909/recipe_replication/c4s2027_results/README.md)。
 
-**C4-2027首次检查：** 07:54:39（悉尼）的第1次短连接确认训练健康，完成4/80轮、正在第5轮，SHA/manifest一致、跟踪文件干净、未访问Test。第2–4轮整轮均值214.800541秒，预计今天12:24:59.974结束；同一heartbeat `betterlvit-r2` 已改约12:37末检，预算1/2，此后不再中途连接。30分钟约束待末次按实际结束时间核实；当前无本种子最终结果。[首检、预测和预约归档](../repro_archive/20260909/recipe_replication/README.md)。
+**C4-2027首次检查：** 07:54:39（悉尼）的第1次短连接确认训练健康，完成4/80轮、正在第5轮，SHA/manifest一致、跟踪文件干净、未访问Test。第2–4轮整轮均值214.800541秒，预计今天12:24:59.974结束；同一heartbeat `frecsnet-r2` 已改约12:37末检，预算1/2，此后不再中途连接。30分钟约束待末次按实际结束时间核实；当前无本种子最终结果。[首检、预测和预约归档](../repro_archive/20260909/recipe_replication/README.md)。
 
-**配对种子复验首组已提交：** 四个冻结来源各两次CUDA预检全部通过，种子内C4/R2初始模型、输入和五步结果完全一致。C4-2027于07:38:08（悉尼）提交，PID138765，SHA `965382b24ad26de81b89f9ddfe9ab434ae4d105b`，tag `experiment-c4-recipe-80e-seed2027-20260909`；只有启动回执，尚未确认健康，独立预算0/2。新定时 `betterlvit-r2` 已约今天07:54首检，再按实测轮时预测末检。其余三组准备完毕、未提交；固定顺序C4-2027→R2-2027→C4-3407→R2-3407，完整跑完两个配对后按[预注册计划](RECIPE_REPLICATION_PLAN_20260909.md)汇总，当前不访问Test。[源码、预检、启动和预约归档](../repro_archive/20260909/recipe_replication/README.md)。
+**配对种子复验首组已提交：** 四个冻结来源各两次CUDA预检全部通过，种子内C4/R2初始模型、输入和五步结果完全一致。C4-2027于07:38:08（悉尼）提交，PID138765，SHA `965382b24ad26de81b89f9ddfe9ab434ae4d105b`，tag `experiment-c4-recipe-80e-seed2027-20260909`；只有启动回执，尚未确认健康，独立预算0/2。新定时 `frecsnet-r2` 已约今天07:54首检，再按实测轮时预测末检。其余三组准备完毕、未提交；固定顺序C4-2027→R2-2027→C4-3407→R2-3407，完整跑完两个配对后按[预注册计划](RECIPE_REPLICATION_PLAN_20260909.md)汇总，当前不访问Test。[源码、预检、启动和预约归档](../repro_archive/20260909/recipe_replication/README.md)。
 
 **R2筛选完成：** 80轮、Best67，Val macro IoU **0.726654**、Dice **0.824034**；相对C4 IoU +0.003857（+0.3857个百分点），95%配对图像区间[0.000512,+0.007145]，最小病灶组IoU +0.007661，Dice点估计不降，四项预注册门槛均通过。Precision −0.009615、Recall +0.015841；Dice区间仍跨0。当前为单种子Val候选，不是稳定Test成果。按已授权计划补充2027/3407的C4↔R2匹配训练，保持原配方，不组合R1或延长150轮。R2末检距训练结束839.206秒，预算2/2；旧R1/R2定时已删除。Best/Last和HF源文件清单已核对，认证旧问题未重试，模型保留。[两组汇总](../repro_archive/20260908/recipe_execution/SCREENING_SUMMARY.md)。
 
@@ -538,13 +540,13 @@ R1来源 `f71e782940dc2a52b08111771f6e3d5f5a8d36c5`、80轮LR、逐图结果、�
 
 **P12后复盘：** 已完成[训练策略复盘与数据审计](../repro_archive/20260908/strategy_review/复盘与下一步.md)。全部1429张Val mask及抽查32张Train mask本来已是224×224；当前resize与最近邻完全一致，排除这一步新增掩码边界变化。共用增强包含90度倍数旋转/镜像而报告token不变；P12七次学习率重启均伴随暂时Val回落，但两点都尚未被证明是最终退化原因。下一步建议限定为C4的胸片方向增强、单次学习率衰减两个独立对照，保持架构和原Dice/Focal，再按配对种子和最终Test验证。该复盘阶段只进行了研究/审计；后续启动状态以上方R1/R2记录为准，尚无新增Test访问。
 
-**执行更新：** P12的80轮训练及自动Val导出已完成，Best epoch70，Val macro IoU/Dice为 **0.716820/0.816282**；C4为0.722796/0.821214。IoU下降0.005977（−0.598个百分点），配对图像95%区间[−0.010325, −0.001710]，最小面积组IoU下降0.008938，四项门槛均失败。停止当前中层相加配置，不启动已准备的C9、不扩150轮、不访问Test。检查总计2次，末次距实际训练结束约11分36秒，定时已删除。源码`5d09913d46863073cba93159af4ed61f88fdd96e`，完整证据见[P12最终结果](../repro_archive/20260908/visual_prior_execution/p12_results/README.md)。前置CXformer探针IoU0.530981优于同构DINOv2的0.475959，但该优势没有转化为本配置的完整BetterLViT增益。
+**执行更新：** P12的80轮训练及自动Val导出已完成，Best epoch70，Val macro IoU/Dice为 **0.716820/0.816282**；C4为0.722796/0.821214。IoU下降0.005977（−0.598个百分点），配对图像95%区间[−0.010325, −0.001710]，最小面积组IoU下降0.008938，四项门槛均失败。停止当前中层相加配置，不启动已准备的C9、不扩150轮、不访问Test。检查总计2次，末次距实际训练结束约11分36秒，定时已删除。源码`5d09913d46863073cba93159af4ed61f88fdd96e`，完整证据见[P12最终结果](../repro_archive/20260908/visual_prior_execution/p12_results/README.md)。前置CXformer探针IoU0.530981优于同构DINOv2的0.475959，但该优势没有转化为本配置的完整FReCS-Net增益。
 
 P11 已完成用户指定的150轮，最佳仍为80轮，Test macro IoU/Dice为0.755661/0.842335；结果与原80轮Best一致。完整运行与逐图证据见[最终归档](../repro_archive/20260908/dual_grain_150_results/README.md)。延长训练没有带来增益。
 
 针对“深入研究第二点方向”，已完成[冻结视觉预训练特征研究报告](../repro_archive/20260908/frozen_visual_prior/研究报告.md)。优先候选为CXformer-S，同结构自然图像DINOv2-S作预训练来源对照，DINOv3-S保留后续候选。计划从C4接入单处中层残差投影，约41,280个可训练参数，沿用原Dice/Focal；这是普通融合可行性方案，尚非独立创新或性能结果。报告记录直方图均衡化/分辨率混淆、固定权重版本、解析预算及Train/Val→配对种子→Test流程。
 
-研究报告完成时仅进行了公开元数据审计；后续诊断与训练推进以上方执行更新为准。当前P12已得到完整BetterLViT单种子Val退化结果，无正增益或新增Test证据。
+研究报告完成时仅进行了公开元数据审计；后续诊断与训练推进以上方执行更新为准。当前P12已得到完整FReCS-Net单种子Val退化结果，无正增益或新增Test证据。
 
 ## 已完成的正式 Test 实验
 
@@ -573,7 +575,7 @@ P11 已完成用户指定的150轮，最佳仍为80轮，Test macro IoU/Dice为0
 | P3 / V2.3 | 有界校准 gate | `874adf6b51e9e3a30b5295b36a1992b6c9098abb` | 0.8154 / 0.7149 | 较 A9 epoch40 -0.0009；相对 A9 best -0.0086；最小病灶 -0.0167；gate 0.3768，边界支持仍过密 | 失败；无 80 epoch/Test |
 | P4 / V2.4 | 稀疏边界有界单跳路由 | `e07924b22956099207203f792eb3c36eb3dd11db` | 0.813003 / 0.712870 | 较 A9 epoch40 -0.003327；相对 A9 best -0.011044，95% CI [-0.014624, -0.007416]；最小病灶 -0.027197；gate 0.27998、focus 0.16654、delta RMS 0.00973；train-val gap约0.0054 | gate/稀疏性通过，但数值与小病灶失败；无 80 epoch/Test |
 
-P4 验证导出：`/root/autodl-tmp/BetterLViT-paper-p4-tcsrv24/runtime_logs/p4_validation_acceptance/`。P1–P4 均未访问 Test。
+P4 验证导出：`{run_checkout}/runtime_logs/p4_validation_acceptance/`。P1–P4 均未访问 Test。
 
 ## 当前非 Focal 配对验证：C0 → P5
 
@@ -611,9 +613,9 @@ P5 只与相同损失、seed、batch 和训练长度的 C0 比较，必须同时
 
 ## 运行与结果路径
 
-- C0 runtime：`/root/autodl-tmp/BetterLViT-paper-c0-tversky/runtime_logs/`
-- P5 runtime：`/root/autodl-tmp/BetterLViT-paper-p5-tcsrv25/runtime_logs/`
-- 非 Focal GPU 预检：`/root/autodl-tmp/BetterLViT-paper-p5-tcsrv25/runtime_logs/preflight_20260902_nonfocal/`
+- C0 runtime：`{run_checkout}/runtime_logs/`
+- P5 runtime：`{run_checkout}/runtime_logs/`
+- 非 Focal GPU 预检：`{run_checkout}/runtime_logs/preflight_20260902_nonfocal/`
 - C0 完成后 validation 导出：`runtime_logs/c0_validation_acceptance/c0_best_val_0p5.json`
 - P5 完成后 validation 导出与 C0 配对比较：记录在 P5 的 `runtime_logs/p5_validation_acceptance/`
 
@@ -628,7 +630,7 @@ P5 只与相同损失、seed、batch 和训练长度的 C0 比较，必须同时
 - 2026-09-02：用户澄清 Focal 可以使用，禁止的是 boundary loss。后续恢复 Dice/Focal 候选，所有正式配置保持 `boundary_loss=0.0`；P5 因包含边界监督仅作为历史诊断实验。
 - 2026-09-03：P6 的频率/分支分层诊断确认：粗头训练显著干扰共享主干，最终 residual 虽能救回大部分损失，却主要退化为全局负向置信度收缩；高局部纹理样本的救援幅度最弱。因此停止 BCDH-R 参数修补，转向梯度隔离、局部稀疏且正负平衡的 CDRR。
 - 2026-09-03：锁定并启动 C2→P7 的 40-epoch validation-only 配对。两项均为 Frozen CXR-BERT、FAM-EPPA V4-B、Dice/Focal、LoRA=False、`boundary_loss=0.0`，明确禁止 Test；C2 为严格控制，P7 仅增加 CDRR V1。
-- 2026-09-03：共享目录必须保持在 20 GB 以下。完成存储审计和裁剪后，`betterlvit_5090_migration` 从 24,266,917,767 bytes 降至 18,559,777,853 bytes；训练盘可用空间从 4.9 GB 提升至 7.3 GB。后续不得再把完整训练会话无条件复制到共享盘。
+- 2026-09-03：共享目录必须保持在 20 GB 以下。完成存储审计和裁剪后，共享迁移目录从 24,266,917,767 bytes 降至 18,559,777,853 bytes；训练盘可用空间从 4.9 GB 提升至 7.3 GB。后续不得再把完整训练会话无条件复制到共享盘。
 - 2026-09-03：C2/P7 均完成 40 epochs、best validation 导出和配对比较，状态为 `complete`，未访问 Test。P7 相对 C2 的 macro Dice 显著下降 `-0.003694`，小病灶 Dice 下降 `-0.008555`，两个高频口径也未同时满足 Dice/precision 不下降；CDRR V1 数值门失败，不扩展训练。
 
 ## 研究反思与主线收敛
@@ -696,7 +698,7 @@ CPAR 已进一步具体化为 **BCDH-R V1（Boundary-Conscious Dual-Head Refiner
 - 两项均为 40 epochs、batch 16、seed 1219、deterministic CUDA、`drop_last=True`。
 - `AUTO_TEST_EVALUATE=0`、`TEST_SPLIT_ALLOWED=0`；本轮禁止访问 Test。
 - 最终状态：C1 与 P6 均完成 40 epochs，训练、best validation 导出和配对比较均成功；GPU 已空闲。
-- 运行元数据：`/root/autodl-tmp/BetterLViT-paper-p6-bcdh/runtime_logs/bcdh_pair_current.env`。
+- 运行元数据：`{run_checkout}/runtime_logs/bcdh_pair_current.env`。
 - 两份 validation JSON 均为 1429 样本、提交一致、`test_split_accessed=false`；本轮未访问 Test。
 
 ### 预注册阶段门
@@ -723,7 +725,7 @@ P6 相对 C1：macro Dice `-0.000352`（95% CI `[-0.002388, 0.001636]`）、IoU 
 - P6 coarse 相对 C1：macro Dice `-0.003289`、precision `-0.008741`；P6 final 相对 C1则为 Dice `-0.000352`、precision `-0.000414`、Brier `-0.000300`。final 相对 base 救回 Dice `+0.018047`、precision `+0.055418`，但没有越过控制组。
 - final residual 平均 `delta_mean=-0.456584`，只有 `9.48%` 像素为正修正；top-20% uncertainty 的绝对修正反而比其余区域低 `0.016780`。该分支主要学成全图负向收缩，而非局部双向纠错。
 - Haar 高频最高四分位上 final 相对 C1 的 Dice 为 `+0.002512`；但归一化局部细节最高四分位为 `-0.002740`，且 final 对 base 的救援仅 `+0.009033`，远低于最低局部细节四分位的 `+0.026507`。高频能量口径不一致，支持后续同时报告 Haar 与归一化局部细节，而不能只挑有利分层。
-- 诊断结果：`/root/autodl-tmp/BetterLViT-paper-p6-bcdh/runtime_logs/bcdh_frequency_diagnostic/p6_frequency_heads.json`。
+- 诊断结果：`{run_checkout}/runtime_logs/bcdh_frequency_diagnostic/p6_frequency_heads.json`。
 
 ### CDRR V1 设计
 
@@ -746,7 +748,7 @@ CDRR（Cross-scale Detail Reliability Refiner）不使用边界标签或 boundar
 
 ### 运行状态与阶段门
 
-- C2→P7 链于服务器时间 `2026-09-03T12:27:26+08:00` 启动；运行元数据：`/root/autodl-tmp/BetterLViT-paper-p7-cdrr/runtime_logs/cdrr_pair_current.env`。
+- C2→P7 链于服务器时间 `2026-09-03T12:27:26+08:00` 启动；运行元数据：`{run_checkout}/runtime_logs/cdrr_pair_current.env`。
 - 最终状态为 `complete`：C2/P7 均完成 40 epochs、best-checkpoint validation 导出与配对比较；GPU 已空闲，训练/导出/比较日志无错误。
 - P7 相对 C2 的主阶段门：validation macro Dice 至少 `+0.002`；整体及最小病灶四分位 precision 不下降；tolerance-2 boundary F1 提升；Brier 不恶化；归一化局部细节最高四分位 Dice/precision 均不下降；支持率接近 15%，支持集外 residual 为 0，且修正不退化为单向全局偏移。
 - 阶段门失败则停止，不扩展 80/150 epochs、不访问 Test；通过后也先做多 seed validation 复核，再决定是否进入正式 Test。
@@ -775,15 +777,15 @@ CDRR 机制约束本身工作正常：支持率 `0.149992`，支持集外 residu
 
 C1/P6 会话、清单、运行日志及频率诊断已按完整 Git SHA 归档到共享盘：
 
-- `/root/autodl-fs/betterlvit_5090_migration/paper_experiment_artifacts/106aeab700ee98653b5ec27994a0aa15b60dac07/`
-- `/root/autodl-fs/betterlvit_5090_migration/paper_experiment_artifacts/7217660e6ef16e2a495bab4f20c73403468f55e1/`
+- `{shared_archive}/paper_experiment_artifacts/106aeab700ee98653b5ec27994a0aa15b60dac07/`
+- `{shared_archive}/paper_experiment_artifacts/7217660e6ef16e2a495bab4f20c73403468f55e1/`
 
 两项会话均核对为 2862 个文件、源/目标字节数完全一致，四个 Best/Last 检查点 SHA-256 全部匹配。服务器本地的两个旧会话副本已删除以释放训练盘空间，完整归档可恢复。
 
 ### 服务器存储策略（20 GB 共享目录上限）
 
 - 2026-09-03 审计前：共享目录 24,266,917,767 bytes，本地训练盘仅余 4.9 GB。
-- 已从 6 个 8 月旧会话中删除可由 sibling Best 替代的 Last checkpoint；8 个历史 Best 全部保留，另保留 3 个 Last。删除前的 SHA-256、字节数与完整路径记录在 `/root/autodl-fs/betterlvit_5090_migration/runtime_logs/storage_optimization_20260903_deleted_legacy_last.sha256`。
+- 已从 6 个 8 月旧会话中删除可由 sibling Best 替代的 Last checkpoint；8 个历史 Best 全部保留，另保留 3 个 Last。删除前的 SHA-256、字节数与完整路径记录在 `{shared_archive}/runtime_logs/storage_optimization_20260903_deleted_legacy_last.sha256`。
 - 已删除共享盘中未被训练使用、可重建的旧 `huggingface-cache`；当前训练只使用 `root_cache/huggingface`。
 - 已删除本地无活跃进程使用的 `hf-upload-staging`、`wheelhouse-cu128` 和旧 `huggingface` 缓存。上传暂存区不是唯一结果来源；wheelhouse/缓存可重建。
 - 审计后：共享目录 18,559,777,853 bytes（约 18.56 GB），低于 20 GB；本地训练盘可用 7.3 GB，P7 训练保持正常。
@@ -808,7 +810,7 @@ P6/P7 证明单纯在输出端做局部修补容易以 recall 换 precision，�
 
 ### 当前运行状态与阶段门
 
-- C3→P8 验证专用链于服务器时间 `2026-09-03T18:30:26+08:00` 启动；元数据：`/root/autodl-tmp/BetterLViT-race-p8/runtime_logs/race_pair_current.env`。
+- C3→P8 验证专用链于服务器时间 `2026-09-03T18:30:26+08:00` 启动；元数据：`{run_checkout}/runtime_logs/race_pair_current.env`。
 - 两项均锁定 80 epochs、batch 16、seed 1219、deterministic、`drop_last=True`、LoRA=False、boundary loss=0；`AUTO_TEST_EVALUATE=0`、`TEST_SPLIT_ALLOWED=0`。
 - 最终链状态为 `complete`：C3/P8 均完成 80 epochs，两个 best-checkpoint validation 导出和配对 bootstrap 比较均成功；GPU 已空闲，日志无训练、CUDA、数据或检查点错误。
 - 两组 Best/Last 均可严格加载，`source_git_commit` 分别匹配上表提交；均为 LoRA=False、boundary loss=0，且 Test 从未访问。
@@ -841,12 +843,12 @@ RACE 末轮四路 strength 为 `[-0.05793, 0.06121, 0.06121, 0.08668]`，gate me
 | C4 | `add4908a0d6f702b0a10c4581725b535543829b8` | `pilot-c4-race-pe-control-80e-seed1219-20260906` | Frozen CXR-BERT + FAM-EPPA V4-B + Dice/Focal |
 | P9 | `8129c1f039ed77f78e70305aca0bb9708b3b56b1` | `pilot-p9-race-pe-80e-seed1219-20260906` | C4 + RACE-PE；aux=0.05；bounded strength=0.15 |
 
-- 开发提交：`8b31af87c6d1d7666d21100fb8f0183af790ecce`；设计说明：`D:/BetterLViT/race_pe_work/docs/RACE_PE_V1_DESIGN.md`。
+- 开发提交：`8b31af87c6d1d7666d21100fb8f0183af790ecce`；设计说明：`race_pe_work/docs/RACE_PE_V1_DESIGN.md`。
 - 两项统一：80 epochs、seed1219、physical batch16、deterministic、drop_last=True、阈值0.5。新配对按 validation macro IoU 选检查点，前5 epochs不参与选择；历史实验仍保留其原选择规则。
 - 冻结源码的真实训练 batch16 前/反向分别重复两次，均通过且各自损失相同。四次初始输出 SHA-256 均为 `246feaa997468b4696ac8d02772f479d38f9315814ba220fed614be7abaa39b7`；C4/P9 allocated 峰值分别约15.10/17.33 GiB。单像素病灶、空mask、未知/否定文本、无效区域、辅助监督消融和IoU检查点选择行为检查均通过。
 - 训练集文本/坐标审计：5716样本，4030个有保守可解析方位；1111个可解析明确单侧病例中1070个与当前图像坐标侧别一致。保留当前约定，不能把矩形六区描述为真实肺分割。
 - 新服务器：`connect.westb.seetacloud.com:21465`，RTX4090D，PyTorch2.9.1+cu128。系统盘约22GiB可用，输出放在系统盘；不删除历史产物。
-- 已发起后台 C4→P9 链，PID2757。状态路径：`/root/race_pe_runs/c4_p9_20260906/chain.status`；源码：`/root/BetterLViT-race-pe-c4`、`/root/BetterLViT-race-pe-p9`。已核对状态 `c4_training`，C4第1/80轮至少完成100/357个batch，GPU利用率99%，暂无训练错误；P9尚未开始，尚无新验证结果。
+- 已发起后台 C4→P9 链，PID2757。状态路径：`/root/race_pe_runs/c4_p9_20260906/chain.status`；源码：`{run_checkout}`、`{run_checkout}`。已核对状态 `c4_training`，C4第1/80轮至少完成100/357个batch，GPU利用率99%，暂无训练错误；P9尚未开始，尚无新验证结果。
 - `TEST_SPLIT_ALLOWED=0`、`AUTO_TEST_EVALUATE=0`。完成训练后只导出validation并生成`c4_vs_p9.json`，不自动扩展训练。
 - 初筛门：macro IoU至少+0.003；整体Dice/precision、最小病灶四分位Dice/recall不下降，Brier不恶化。报告IoU配对bootstrap CI；即使单种子过门也不代表稳定增益。
 - 已注册但未启动：C5（原RACE、同IoU选择规则）、C6（匹配权重的像素辅助监督、无路由）、C7（全部PE辅助监督、无路由）。后续先完成机制归因，再预注册至少3个配对种子；方法锁定前不访问Test。
@@ -867,7 +869,7 @@ P9-C4：IoU +0.001538（95% CI [-0.001819, 0.004953]），Dice +0.000846；preci
 
 诊断线索：P9 best-checkpoint验证导出的最后一个batch中，文本槽概率均值0.998699；训练末轮均值0.9991。存在文本分支趋向全阳性的强烈信号；这些是末batch/末轮快照，不代表已经完成全验证集机制归因。V1使用positive-only文本监督，可能允许全阳性退化，需要单独诊断而非直接重启训练。
 
-本地原始结果：`D:/BetterLViT/outputs/race_pe_results_20260907/`。归档SHA-256 `15421e4266f010d58115a9411f10ed849757d82e62d966c4097aa2b71a11f91f`已与服务器一致核验。
+本地原始结果：`outputs/race_pe_results_20260907/`。归档SHA-256 `15421e4266f010d58115a9411f10ed849757d82e62d966c4097aa2b71a11f91f`已与服务器一致核验。
 
 
 ### C4/P9 用户授权 Test 检查（2026-09-07）
@@ -883,7 +885,7 @@ P9-C4：IoU +0.001538（95% CI [-0.001819, 0.004953]），Dice +0.000846；preci
 
 P9-C4：Dice -0.001212（95%配对图像bootstrap CI [-0.003527, 0.001090]）；IoU -0.001045（CI [-0.003706, 0.001705]）；precision -0.019221（CI [-0.021928, -0.016600]）；recall +0.020970（CI [0.017751, 0.024230]）；Brier +0.000608（恶化）。Test未显示IoU增益，IoU区间跨0不能声称显著下降；precision下降明确，仍不支持稳定增益。原validation失败结论不变，未启动后续训练。
 
-原始Test结果、评估脚本、授权与日志：`D:/BetterLViT/outputs/race_pe_test_20260907/`。归档SHA-256 `85dec863d637fa0fb41e8c44546109e501caff10583f9cbbfb6075068642338e`已与服务器匹配；脚本哈希与2113样本数核验通过。
+原始Test结果、评估脚本、授权与日志：`outputs/race_pe_test_20260907/`。归档SHA-256 `85dec863d637fa0fb41e8c44546109e501caff10583f9cbbfb6075068642338e`已与服务器匹配；脚本哈希与2113样本数核验通过。
 
 
 ### RACE-PE退化诊断（2026-09-07，训练/验证专用）
@@ -899,7 +901,7 @@ P9-C4：Dice -0.001212（95%配对图像bootstrap CI [-0.003527, 0.001090]）；
 
 后续优先修复文本目标可辨识性，将报告“提及”与疾病“存在”区分；移除或屏蔽与mask冲突的固定矩形正一致性。在小规模可学习性验证后再做匹配消融，不直接延长训练。未启动任何新训练。
 
-完整报告与原始证据：`D:/BetterLViT/outputs/race_pe_diagnosis_20260907/诊断报告.md`。诊断归档SHA-256 `7e1544611e33c59142af43e9e1d92cdde983d156ce00f3dad4aa9849eb777dea`已与远端一致校验。
+完整报告与原始证据：`outputs/race_pe_diagnosis_20260907/诊断报告.md`。诊断归档SHA-256 `7e1544611e33c59142af43e9e1d92cdde983d156ce00f3dad4aa9849eb777dea`已与远端一致校验。
 
 
 ### RACE-PE V2最小修复与可学习性检查（2026-09-07）
@@ -945,7 +947,7 @@ V1的区域文本BCE只有正例、没有负例，允许全阳性解；报告区
 - 本轮`AUTO_TEST_EVALUATE=0`、`TEST_SPLIT_ALLOWED=0`，不会自动扩展或访问Test。此前C4/P9已访问Test记录保留。
 - 远端输出：`/root/race_pe_v2_runs/c8_p10_20260907`。系统盘启动前可用20056121344字节，预计两组Best/Last加临时写入空间足够；不增加共享fs占用。
 
-本地启动快照：`D:/BetterLViT/outputs/race_pe_v2_launch_20260907/launch_snapshot.json`。正式完成需核对chain.status、两个Val导出、三个比较JSON及来源提交。预注册说明见V2工作树`docs/RACE_PE_V2_SEGMENTATION_PILOT.md`。
+本地启动快照：`outputs/race_pe_v2_launch_20260907/launch_snapshot.json`。正式完成需核对chain.status、两个Val导出、三个比较JSON及来源提交。预注册说明见V2工作树`docs/RACE_PE_V2_SEGMENTATION_PILOT.md`。
 
 
 ### C8/P10 V2验证消融完成（2026-09-07）
@@ -962,7 +964,7 @@ C8-C4：IoU+0.003551，配对图像bootstrap95%CI[0.001131,0.006045]；precision
 
 P10-C4：IoU+0.002798，CI[-0.000625,0.006320]，未达+0.003门槛；precision-0.006025；最小病灶Dice-0.000826，筛选失败。P10-C8：IoU-0.000753，CI[-0.003779,0.002389]，不能声称显著IoU下降；precision-0.010113，CI[-0.013085,-0.007154]；recall+0.011510；Brier+0.000297。因此未证明路由带来增益，仍有扩大预测范围的表现。优先进一步核验C8辅助监督路径，而非延长P10或宣称完整RACE-PE创新成功。
 
-结果目录 `D:/BetterLViT/outputs/race_pe_v2_results_20260907/`；下载归档SHA256 `4baa2e639eb43e4d966542fa8254762cf910af85e64824e571b79b147887760a`已与远端一致核验。后续需诊断辅助监督贡献并预注册额外配对种子；本次没有自动扩展。
+结果目录 `outputs/race_pe_v2_results_20260907/`；下载归档SHA256 `4baa2e639eb43e4d966542fa8254762cf910af85e64824e571b79b147887760a`已与远端一致核验。后续需诊断辅助监督贡献并预注册额外配对种子；本次没有自动扩展。
 
 
 ### C8/P10用户授权Test结果（2026-09-07）
@@ -979,7 +981,7 @@ C8-C4：Dice+0.001324，配对图像bootstrap95%CI[-0.000605,0.003290]；IoU+0.0
 
 P10-C4：Dice+0.000962，CI[-0.001635,0.003569]；IoU+0.001694，CI[-0.001309,0.004688]；precision-0.007076，CI[-0.009901,-0.004268]。P10-C8：Dice-0.000362、IoU-0.000521，两者区间跨0；precision-0.010921，CI[-0.013471,-0.008407]。完整路由仍未证明增益。额外配对种子与机制归因尚未完成。
 
-两组来源分别为C8 `21606e02c2d64ae950c0f243f55163f58cbedf83`、P10 `2f33a71219ed2beb339db45d702ecc36a931e0c8`；脚本哈希、来源SHA、最佳epoch和样本数均核验。结果目录 `D:/BetterLViT/outputs/race_pe_v2_test_20260907/`，归档SHA256 `01f31f2052ddf4b6eaa6d9dedd1c3183e439ed996783782e11c182cf90e6b9de`与远端一致。status complete，无新训练。
+两组来源分别为C8 `21606e02c2d64ae950c0f243f55163f58cbedf83`、P10 `2f33a71219ed2beb339db45d702ecc36a931e0c8`；脚本哈希、来源SHA、最佳epoch和样本数均核验。结果目录 `outputs/race_pe_v2_test_20260907/`，归档SHA256 `01f31f2052ddf4b6eaa6d9dedd1c3183e439ed996783782e11c182cf90e6b9de`与远端一致。status complete，无新训练。
 
 
 ### P8重启：固定模型归因完成，P8R2/P8B2启动（2026-09-14）
@@ -991,19 +993,19 @@ P8R2原P8＋R2已启动并观察到epoch1 batch60/357；P8B2绑定修复对照�
 - P8R2源 `2a4adcfd7eff8cc832da355a5c7935039a14a1df`，tag `experiment-p8-r2-80e-seed1219-20260914`。
 - P8B2源 `c6e52a9b13576cab9e2451c550d03ad274bc09e2`，tag `experiment-p8-r2-binding-80e-seed1219-20260914`。
 - 两版初始输出相同；真实Train CUDA前后向各重复两次一致，有限梯度通过。绑定版仅替换可覆盖六区目标，保留原数量和未知语法回退，不同时增加unknown mask。
-- 远端队列 `/root/autodl-tmp/p8_restart_20260914/queue_status.json`，队列PID404254；完整报告、检查点哈希、逐图诊断、预检与启动快照在 `D:/BetterLViT/outputs/p8_research_20260914/`。
+- 远端队列 `/root/autodl-tmp/p8_restart_20260914/queue_status.json`，队列PID404254；完整报告、检查点哈希、逐图诊断、预检与启动快照在 `outputs/p8_research_20260914/`。
 
 先对比P8R2−R2与P8B2−P8R2，结构贡献仍须视觉/辅助监督匹配消融及后续种子验证。此条只追加当前进展，不提交或覆盖工作树中已有清理记录改动。
 
 
 ### P8R2完成Val，修复导出白名单并恢复P8B2（2026-09-15）
 
-P8R2完整80轮、Best75；原自动导出因CLI白名单遗漏新profile失败，现已修复并完成1429张Val。原训练提交未变，分析提交`f1285f91b7c2f377fc133a6cd32f21d393568dcf`，6项回归检查通过；失败原日志/runtime保留。P8R2 Val macro IoU=0.729222788、Dice=0.826088807；相对同seed1219 R2 IoU+0.2569pp，图像配对95%区间[-0.1122,+0.6297]pp。P8B2已恢复训练，Best Val自动接续，无Test。不能将此单种子结果称为第二创新成立。详见`D:/BetterLViT/outputs/p8_research_20260914/REPORT.md`及`recovery_status_snapshot.json`。
+P8R2完整80轮、Best75；原自动导出因CLI白名单遗漏新profile失败，现已修复并完成1429张Val。原训练提交未变，分析提交`f1285f91b7c2f377fc133a6cd32f21d393568dcf`，6项回归检查通过；失败原日志/runtime保留。P8R2 Val macro IoU=0.729222788、Dice=0.826088807；相对同seed1219 R2 IoU+0.2569pp，图像配对95%区间[-0.1122,+0.6297]pp。P8B2已恢复训练，Best Val自动接续，无Test。不能将此单种子结果称为第二创新成立。详见`outputs/p8_research_20260914/REPORT.md`及`recovery_status_snapshot.json`。
 
 
 ### P8R2/P8B2最终Val完成（2026-09-15）
 
-两组80轮、Best均75，全部1429张Val成功导出，GPU空闲，无新Test。P8R2 IoU72.9223%、Dice82.6089%；P8B2 IoU72.8115%、Dice82.5126%。相对R2的IoU增益分别+0.2569pp、+0.1462pp，均未过预设发现门。绑定修复相对原P8R2 IoU−0.1107pp，无观察到改善；配对区间见完整结果，不宣称显著退化或第二创新成立。冻结训练来源未变，独立分析修复提交`f1285f91b7c2f377fc133a6cd32f21d393568dcf`。最终报告`D:/BetterLViT/outputs/p8_research_20260914/FINAL_PAIR_REPORT.md`；所有指标/分层/来源`FINAL_PAIR_RESULTS.json`。未自动启动下一组实验。
+两组80轮、Best均75，全部1429张Val成功导出，GPU空闲，无新Test。P8R2 IoU72.9223%、Dice82.6089%；P8B2 IoU72.8115%、Dice82.5126%。相对R2的IoU增益分别+0.2569pp、+0.1462pp，均未过预设发现门。绑定修复相对原P8R2 IoU−0.1107pp，无观察到改善；配对区间见完整结果，不宣称显著退化或第二创新成立。冻结训练来源未变，独立分析修复提交`f1285f91b7c2f377fc133a6cd32f21d393568dcf`。最终报告`outputs/p8_research_20260914/FINAL_PAIR_REPORT.md`；所有指标/分层/来源`FINAL_PAIR_RESULTS.json`。未自动启动下一组实验。
 
 
 ### P8R2/P8B2用户授权Test完成（2026-09-15）
@@ -1014,12 +1016,12 @@ P8R2完整80轮、Best75；原自动导出因CLI白名单遗漏新profile失败�
 - P8R2：Test macro IoU 75.9505%，Dice 84.5237%；来源`2a4adcfd7eff8cc832da355a5c7935039a14a1df`。
 - P8B2：Test macro IoU 76.2485%，Dice 84.7097%；来源`c6e52a9b13576cab9e2451c550d03ad274bc09e2`。
 
-两组现在均已访问Test。完整三组配对差值、置信区间和来源见`D:/BetterLViT/outputs/p8_research_20260914/test_20260915/TEST_REPORT.md`及`TEST_RESULTS.json`。指标与历史R2 Test脚本一致性已核验；仅单seed，不能宣称跨种子稳定性。
+两组现在均已访问Test。完整三组配对差值、置信区间和来源见`outputs/p8_research_20260914/test_20260915/TEST_REPORT.md`及`TEST_RESULTS.json`。指标与历史R2 Test脚本一致性已核验；仅单seed，不能宣称跨种子稳定性。
 
 
 ### P8BA绑定修复辅助监督控制已启动（2026-09-15）
 
-用户明确要求“先训练R2＋绑定修复辅助监督这个配置”。新增P8BA `p8_r2_binding_aux`，源`ec9f3590d535ee29c02484e3c4babc6fb0c099d0`，tag `experiment-p8-binding-aux-only-80e-seed1219-20260915`。R2配方、80轮、seed1219、batch16、绑定修复辅助监督0.05全部固定，仅关闭四层RACE路由。严格identity与辅助encoder梯度检查通过；真实Train重复前反向与P8B2初始输出/损失一致。已观察epoch1 batch40/357，GPU99%，无最终增益结果。沿用用户训练后自动Test偏好，完成后先Best Val再同Best固定0.5 Test，训练阶段Test禁用。远端`/root/autodl-tmp/p8_binding_aux_20260915/run`，runner436100、训练436105。完整记录`D:/BetterLViT/outputs/p8_binding_aux_20260915/REPORT.md`。本轮只启动该组。
+用户明确要求“先训练R2＋绑定修复辅助监督这个配置”。新增P8BA `p8_r2_binding_aux`，源`ec9f3590d535ee29c02484e3c4babc6fb0c099d0`，tag `experiment-p8-binding-aux-only-80e-seed1219-20260915`。R2配方、80轮、seed1219、batch16、绑定修复辅助监督0.05全部固定，仅关闭四层RACE路由。严格identity与辅助encoder梯度检查通过；真实Train重复前反向与P8B2初始输出/损失一致。已观察epoch1 batch40/357，GPU99%，无最终增益结果。沿用用户训练后自动Test偏好，完成后先Best Val再同Best固定0.5 Test，训练阶段Test禁用。远端`/root/autodl-tmp/p8_binding_aux_20260915/run`，runner436100、训练436105。完整记录`outputs/p8_binding_aux_20260915/REPORT.md`。本轮只启动该组。
 
 
 ### P8BA 绑定修复辅助监督单独消融完成（2026-09-15）
@@ -1031,26 +1033,26 @@ P8BA＝R2＋绑定修复辅助监督，RACE 路由关闭。80/80 轮，Val 选�
 - validation: macro IoU 72.7506%，Dice 82.4587%。
 - test: macro IoU 76.0013%，Dice 84.5453%。
 
-完整同种子 R2/P8BA/P8B2 配对对比及证据边界：`D:/BetterLViT/outputs/p8_binding_aux_20260915/FINAL_REPORT.md`。目前仅单种子；本次未启动额外训练。
+完整同种子 R2/P8BA/P8B2 配对对比及证据边界：`outputs/p8_binding_aux_20260915/FINAL_REPORT.md`。目前仅单种子；本次未启动额外训练。
 
 
 ### 第一阶段FSDR×完整RACE整体消融启动（2026-09-15）
 
 用户授权只执行第一阶段，先核对HF备份清理旧权重，再直接训练。已清理34个备份匹配旧权重，移除28,971,520,000分配字节；共享目录18,559,782,256字节不变。8次独立提交/标签/预检已完成，首项J0 seed1219正式训练，余下串行排队。无路由/监督拆分实验，无内部机制训练。
 
-完整配置、源SHA、预检及实时状态入口：`D:/BetterLViT/outputs/stage1_overall_20260915/REPORT.md`。当前是训练启动证据，不是增益结果。
+完整配置、源SHA、预检及实时状态入口：`outputs/stage1_overall_20260915/REPORT.md`。当前是训练启动证据，不是增益结果。
 
 
 ### 第一阶段FSDR×完整RACE三种子整体消融完成（2026-09-16）
 
 8次新增训练及Val/Test全部完成，复用4个匹配既有模型，共12个模型。冻结CXR-BERT、无LoRA、80轮、batch16、Dice/Focal、单周期余弦。Test逐图macro IoU三种子均值：原PLAM75.4775%；FSDR75.9833%；原PLAM＋完整RACE75.6962%；FSDR＋完整RACE76.2262%。完整模型相对PLAM平均提高0.7487个百分点；完整RACE相对FSDR平均提高0.2428个百分点。所有种子及负面/正面结果均保留，未拆分RACE路由和辅助监督。逐图均值、样本集合和来源哈希核对通过。巡检已暂停并读取保存配置确认PAUSED；未执行内部机制实验。
 
-结果、完整配置、每模型SHA/标签、权重路径及结果来源：`D:/BetterLViT/outputs/stage1_overall_20260915/FINAL_REPORT.md`、`FINAL_RESULTS.csv`、`PAPER_MODEL_INDEX.json`。
+结果、完整配置、每模型SHA/标签、权重路径及结果来源：`outputs/stage1_overall_20260915/FINAL_REPORT.md`、`FINAL_RESULTS.csv`、`PAPER_MODEL_INDEX.json`。
 
 
 ### PLAM与完整FSDR RACE余弦热重启配对启动（2026-09-16）
 
-用户明确授权只更换学习率为原cos restart，重训PLAM无两个模块和FSDR＋完整RACE，各seed1219一次。两组保持80轮、batch16、冻结CXR-BERT无LoRA、Dice/Focal、Val IoU选Best；warm_restarts初始3e-4、eta_min1e-4、T_0=10、T_mult=1。CR0源码9c0e51749a8f19b122a2888081abaf68a52f3a6c；CR3源码a2c895b4d1c29ff965496aaa7f40ab17ca945902。真实Train预检和80轮学习率核对均通过，CR0已经正式训练，CR3串行排队，训练成功后各自动导出Val及固定Best的一次Test。不根据成绩更改第二组，不覆盖旧三种子结果。每run最多两次检查，任务启用和保存配置已回读验证。无新成绩、无模型清理。执行和来源入口：`D:/BetterLViT/outputs/cos_restart_pair_20260916/REPORT.md`。
+用户明确授权只更换学习率为原cos restart，重训PLAM无两个模块和FSDR＋完整RACE，各seed1219一次。两组保持80轮、batch16、冻结CXR-BERT无LoRA、Dice/Focal、Val IoU选Best；warm_restarts初始3e-4、eta_min1e-4、T_0=10、T_mult=1。CR0源码9c0e51749a8f19b122a2888081abaf68a52f3a6c；CR3源码a2c895b4d1c29ff965496aaa7f40ab17ca945902。真实Train预检和80轮学习率核对均通过，CR0已经正式训练，CR3串行排队，训练成功后各自动导出Val及固定Best的一次Test。不根据成绩更改第二组，不覆盖旧三种子结果。每run最多两次检查，任务启用和保存配置已回读验证。无新成绩、无模型清理。执行和来源入口：`outputs/cos_restart_pair_20260916/REPORT.md`。
 
 
 ### 余弦热重启配对CR0完成、CR3自动接续（2026-09-16）
@@ -1060,12 +1062,12 @@ CR0（冻结CXR-BERT、无LoRA、PLAM无FSDR/RACE，Dice/Focal，80轮，warm re
 
 ### 余弦热重启配对实验全部完成（2026-09-17）
 
-CR0/CR3均seed1219、80轮、冻结CXR-BERT无LoRA、Dice/Focal、warm restarts，Best均第80轮。Test逐图macro、2113张、阈值0.5：PLAM无两个模块IoU75.0909%、Dice83.6882%；FSDR＋完整RACE IoU75.6356%、Dice84.2339%；完整模型相对PLAM IoU+0.5447个百分点。同seed单周期余弦配对为+0.6810个百分点，热重启使PLAM/完整模型绝对IoU分别下降0.4767/0.6129个百分点，未扩大增量。结果来源、文件哈希、逐图均值和样本集合核对通过，权重保留，两模型各2次检查用完，fsdr-race已暂停且view/本地配置核验一致。详见`D:/BetterLViT/outputs/cos_restart_pair_20260916/FINAL_REPORT.md`及FINAL_RESULTS.json。
+CR0/CR3均seed1219、80轮、冻结CXR-BERT无LoRA、Dice/Focal、warm restarts，Best均第80轮。Test逐图macro、2113张、阈值0.5：PLAM无两个模块IoU75.0909%、Dice83.6882%；FSDR＋完整RACE IoU75.6356%、Dice84.2339%；完整模型相对PLAM IoU+0.5447个百分点。同seed单周期余弦配对为+0.6810个百分点，热重启使PLAM/完整模型绝对IoU分别下降0.4767/0.6129个百分点，未扩大增量。结果来源、文件哈希、逐图均值和样本集合核对通过，权重保留，两模型各2次检查用完，fsdr-race已暂停且view/本地配置核验一致。详见`outputs/cos_restart_pair_20260916/FINAL_REPORT.md`及FINAL_RESULTS.json。
 
 
 ### 余弦热重启扩展三种子已启动（2026-09-17）
 
-用户授权扩展至三种子。复用CR0/CR3 seed1219已完成结果，新增PLAM2027→完整FSDR＋RACE2027→PLAM3407→完整FSDR＋RACE3407四次。所有配置沿用80轮、batch16、冻结CXR-BERT无LoRA、Dice/Focal、原warm restarts；独立SHA/标签和四次Train预检通过，模型实现与评估口径不变。cr0s2027已进入训练且首检正常，其余三次串行自动接续；Train→Val选Best→一次Test。没有新成绩。每run最多两次检查，下一次目标2026-09-17T06:55Z；fsdr-race启用且view/本地回读核验通过。权重均保留、未清理。执行和完整来源见`D:/BetterLViT/outputs/cos_restart_three_seeds_20260917/REPORT.md`。
+用户授权扩展至三种子。复用CR0/CR3 seed1219已完成结果，新增PLAM2027→完整FSDR＋RACE2027→PLAM3407→完整FSDR＋RACE3407四次。所有配置沿用80轮、batch16、冻结CXR-BERT无LoRA、Dice/Focal、原warm restarts；独立SHA/标签和四次Train预检通过，模型实现与评估口径不变。cr0s2027已进入训练且首检正常，其余三次串行自动接续；Train→Val选Best→一次Test。没有新成绩。每run最多两次检查，下一次目标2026-09-17T06:55Z；fsdr-race启用且view/本地回读核验通过。权重均保留、未清理。执行和完整来源见`outputs/cos_restart_three_seeds_20260917/REPORT.md`。
 
 
 ### 热重启PLAM seed2027完成，完整模型接续（2026-09-17）
@@ -1286,11 +1288,11 @@ Dice配对增量，单位为百分点：
 
 ### 余弦热重启12模型HF备份完成（2026-09-19）
 
-核验时间：2026-09-19T09:04:23.053943+00:00。Bucket：razaxq/BetterLViT。
+核验时间：2026-09-19T09:04:23.053943+00:00。Bucket：razaxq/FReCS-Net。
 
 12模型、24份Best/Last权重及配套文件，共60文件、20,253,635,135逻辑字节（20.254 GB）。每个模型顶层目录为源码8位短hash。
 
-每个目录包含训练会话日志、固定Best的Test逐图结果JSON、models/best_model-BetterLViT.pth.tar、models/last_model-BetterLViT.pth.tar及一个TensorBoard事件文件。未上传可视化JPG。
+每个目录包含训练会话日志、固定Best的Test逐图结果JSON、models/ 下的 Best 和 Last 权重及一个TensorBoard事件文件。未上传可视化JPG。
 
 上传前核对Train/Val/Test成功返回码、完整源码SHA与tag、2113张Test导出、Best SHA256、24份权重CPU可加载、训练日志无Traceback。上传仅做新增；已存在路径须大小和Xet哈希匹配。上传后服务器逐文件核验，并由本机重新列取Bucket独立核验全部60文件大小与Xet哈希。最后确认60个源文件仍存在、大小不变。
 
@@ -1316,7 +1318,7 @@ Dice配对增量，单位为百分点：
 
 2026-09-19T09:57:12.921821+00:00
 
-Bucket：razaxq/BetterLViT。本轮新增11模型、22份Best/Last及配套文件，共55文件、18,577,242,551字节（18.577 GB）。
+Bucket：razaxq/FReCS-Net。本轮新增11模型、22份Best/Last及配套文件，共55文件、18,577,242,551字节（18.577 GB）。
 
 每组以训练源码8位短hash为目录，含Best、Last、会话日志、固定Best的Test结果及一个TensorBoard事件文件。全部文件已在服务器和本机独立列表中核验字节数与Xet哈希；原文件仍在服务器、大小不变。没有重训、重做推理或删除文件。
 
@@ -1336,7 +1338,7 @@ Bucket：razaxq/BetterLViT。本轮新增11模型、22份Best/Last及配套文�
 
 之前已上传的仅FSDR单周期余弦三种子继续有效。因此单周期余弦整体消融12/12模型、余弦热重启整体消融12/12模型现在均有HF备份，两个额外历史P8模型也已补齐。P8B2 seed1219计入单周期余弦组合模型，不重复计数。
 
-本次重新列取HF全量目录，与上一轮审计的58份现存标准Best/Last权重指纹对照，58/58均有内容匹配、缺口为0；此范围限定于上一轮审计的83个BetterLViT仓库输出树，不推断审计以外的新文件。详见POST_UPLOAD_COVERAGE.json。
+本次重新列取HF全量目录，与上一轮审计的58份现存标准Best/Last权重指纹对照，58/58均有内容匹配、缺口为0；此范围限定于上一轮审计的83个FReCS-Net仓库输出树，不推断审计以外的新文件。详见POST_UPLOAD_COVERAGE.json。
 
 P8BA本地Test JSON和服务器JSON字节序列不同，但解析后所有字段及逐图记录完全一致，等价性证据见p8ba_test_export_equivalence.json。上传服务器原始Test文件；没有修改指标或重新评估。
 

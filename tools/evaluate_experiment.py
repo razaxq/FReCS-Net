@@ -24,11 +24,11 @@ _profile_parser = argparse.ArgumentParser(add_help=False)
 _profile_parser.add_argument("--experiment")
 _profile_args, _ = _profile_parser.parse_known_args()
 if _profile_args.experiment:
-    os.environ["BETTERLVIT_EXPERIMENT"] = _profile_args.experiment
+    os.environ["FRECSNET_EXPERIMENT"] = _profile_args.experiment
 
 import Config as config
 from Load_Dataset import ImageToImage2D, ValGenerator
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import read_text
 from training_recipe import recipe_metadata
 
@@ -103,7 +103,7 @@ def latest_best_checkpoint():
 
 
 def build_model():
-    return BetterLViT(
+    return FReCSNet(
         config.get_CTranS_config(),
         n_channels=config.n_channels,
         n_classes=config.n_labels,

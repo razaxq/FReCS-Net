@@ -27,9 +27,8 @@ dataset split remain identical to 839752.
 
 ## Safety and evaluation
 
-- Worktree: `D:\Project\BetterLViT-eppa-boundary`
 - Branch: `codex/eppa-boundary-loss`
-- Shared AMD environment: `D:\Project\BetterLViT\.venv`
+- Activate the shared AMD Python environment before running the checks.
 - Check first: `python tools\check_boundary_experiment.py`
 - Train: `python train_model.py`
 - Evaluate: `python tools\evaluate_experiment.py`

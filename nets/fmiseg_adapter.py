@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""A controlled FMISeg-inspired decoder adapter for BetterLViT.
+"""A controlled FMISeg-inspired decoder adapter for FReCS-Net.
 
 This is not a reproduction of the published dual-ConvNeXt FMISeg network. It
-adapts the paper's two defining operations to BetterLViT decoder skips:
+adapts the paper's two defining operations to FReCS-Net decoder skips:
 
 1. FFBI-style bidirectional interaction between Haar low/high-frequency tokens.
 2. LFFI-style bidirectional interaction between visual and CXR-BERT tokens.

@@ -9,7 +9,7 @@ from paper_experiments import get_paper_experiment
 
 
 paper_experiment = get_paper_experiment(
-    os.environ.get('BETTERLVIT_EXPERIMENT', 'b0_baseline')
+    os.environ.get('FRECSNET_EXPERIMENT', 'b0_baseline')
 )
 
 ## PARAMETERS OF THE MODEL
@@ -17,13 +17,13 @@ save_model = True
 tensorboard = True
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 use_cuda = torch.cuda.is_available()
-seed = int(os.environ.get('BETTERLVIT_SEED', '1219'))
+seed = int(os.environ.get('FRECSNET_SEED', '1219'))
 os.environ['PYTHONHASHSEED'] = str(seed)
 
 cosineLR = True  # Use cosineLR or not
 n_channels = 3
 n_labels = 1  # MoNuSeg & Covid19
-epochs = int(os.environ.get('BETTERLVIT_EPOCHS', '150'))
+epochs = int(os.environ.get('FRECSNET_EPOCHS', '150'))
 img_size = 224
 print_frequency = 20
 tensorboard_frequency = 20
@@ -31,7 +31,7 @@ save_frequency = 5000
 # Validation previews are optional training artifacts. Long remote runs can
 # disable them without changing optimization or metrics, which also avoids a
 # failed image write interrupting checkpoint progress.
-vis_frequency = int(os.environ.get('BETTERLVIT_VIS_FREQUENCY', '10'))
+vis_frequency = int(os.environ.get('FRECSNET_VIS_FREQUENCY', '10'))
 early_stopping_patience = 80
 print_loss_components = False  # Toggle to print individual loss components
 
@@ -42,17 +42,17 @@ learning_rate = 3e-4  # MoNuSeg: 1e-3, Covid19: 3e-4
 weight_decay = 1e-4  # L2 regularization on Adam; 0 disables
 # The 4090D paper protocol uses one locked physical batch size for B0--A3.
 # Every launcher records an explicit override; 16 is the tested server default.
-batch_size = int(os.environ.get('BETTERLVIT_BATCH_SIZE', '16'))
-train_drop_last = bool(int(os.environ.get('BETTERLVIT_TRAIN_DROP_LAST', '1')))
-num_workers = int(os.environ.get('BETTERLVIT_NUM_WORKERS', '4'))
+batch_size = int(os.environ.get('FRECSNET_BATCH_SIZE', '16'))
+train_drop_last = bool(int(os.environ.get('FRECSNET_TRAIN_DROP_LAST', '1')))
+num_workers = int(os.environ.get('FRECSNET_NUM_WORKERS', '4'))
 # Recreate workers at every epoch boundary so checkpoint resume can restore the
 # exact sampler and augmentation RNG streams.
 persistent_workers = False
 # Deterministic execution is mandatory for the server paper protocol.
 deterministic_training = bool(
-    int(os.environ.get('BETTERLVIT_DETERMINISTIC', '1'))
+    int(os.environ.get('FRECSNET_DETERMINISTIC', '1'))
 )
-cudnn_enabled = bool(int(os.environ.get('BETTERLVIT_CUDNN_ENABLED', '1')))
+cudnn_enabled = bool(int(os.environ.get('FRECSNET_CUDNN_ENABLED', '1')))
 # Backward-compatible alias used by the existing training entry point.
 miopen_enabled = cudnn_enabled
 
@@ -72,14 +72,14 @@ decoder_fusion_mode = paper_experiment['decoder_fusion_mode']
 experiment_architecture = paper_experiment['description']
 experiment_architecture_version = paper_experiment['architecture_version']
 experiment_output_name = experiment_name + '_evaluation.json'
-source_git_commit = os.environ.get('BETTERLVIT_GIT_COMMIT', '').strip()
+source_git_commit = os.environ.get('FRECSNET_GIT_COMMIT', '').strip()
 visual_prior_enabled = bool(paper_experiment.get('visual_prior_enabled', False))
 training_recipe_enabled = bool(paper_experiment.get('training_recipe_enabled', False))
 augmentation_policy = paper_experiment.get('augmentation_policy', 'legacy')
 lr_schedule = paper_experiment.get('lr_schedule', 'warm_restarts')
 visual_random_init = bool(paper_experiment.get('visual_random_init', False))
 visual_encoder_kind = paper_experiment.get('visual_encoder_kind', 'cxformer')
-visual_model_root = os.environ.get('BETTERLVIT_VISUAL_MODEL_ROOT', '/root/visual_prior_models')
+visual_model_root = os.environ.get('FRECSNET_VISUAL_MODEL_ROOT', '/root/visual_prior_models')
 bcdh_enabled = bool(paper_experiment.get('bcdh_enabled', False))
 bcdh_aux_weight = float(paper_experiment.get('bcdh_aux_weight', 0.0))
 bcdh_hidden_channels = int(
@@ -129,7 +129,7 @@ if race_enabled and loss_name != 'dice_focal':
 if race_enabled and not 0.0 < race_aux_weight < 1.0:
     raise ValueError('RACE auxiliary weight must be in (0, 1)')
 
-model_name = 'BetterLViT'
+model_name = 'FReCS-Net'
 # model_name = 'LViT_pretrain'
 
 # Local workstation safety.
@@ -142,7 +142,7 @@ shutdown_after_training = False
 # original best_model is not overwritten in the source session.
 # resume_max_dice is only used as a fallback when the loaded checkpoint
 # predates this resume infrastructure (no 'max_dice' field).
-resume_path = os.environ.get('BETTERLVIT_RESUME_PATH', '').strip()
+resume_path = os.environ.get('FRECSNET_RESUME_PATH', '').strip()
 resume_max_dice = 0.0
 require_checkpoint_architecture_match = True
 

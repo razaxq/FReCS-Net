@@ -8,7 +8,7 @@ import Config as config
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import os
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import *
 import cv2
 
@@ -92,10 +92,10 @@ if __name__ == '__main__':
             )
         )
 
-    if model_type in ('LViT', 'BetterLViT'):
+    if model_type in ('LViT', 'FReCS-Net'):
         config_vit = config.get_CTranS_config()
-        use_lora = config.text_use_lora and (model_type == 'BetterLViT')
-        model = BetterLViT(
+        use_lora = config.text_use_lora and (model_type == 'FReCS-Net')
+        model = FReCSNet(
             config_vit,
             n_channels=config.n_channels,
             n_classes=config.n_labels,
@@ -110,7 +110,7 @@ if __name__ == '__main__':
 
     elif model_type == 'LViT_pretrain':
         config_vit = config.get_CTranS_config()
-        model = BetterLViT(
+        model = FReCSNet(
             config_vit,
             n_channels=config.n_channels,
             n_classes=config.n_labels,

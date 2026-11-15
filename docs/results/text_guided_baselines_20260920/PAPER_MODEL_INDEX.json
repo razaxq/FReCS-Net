@@ -64,10 +64,10 @@
     }
   },
   "MMI": {
-    "checkpoint": "D:/BetterLViT/outputs/external_methods_20260920/mmiunet_cov19.ckpt",
+    "checkpoint": "outputs/external_methods_20260920/mmiunet_cov19.ckpt",
     "scope": "Official checkpoint full Test2113 inference; exact author training filenames unverified",
     "test_iou": 0.7547829611612585,
     "test_dice": 0.8397065303230069,
-    "test_results": "D:\\BetterLViT\\outputs\\external_methods_20260920\\full_test\\TEST_RESULTS.json"
+    "test_results": "outputs\\external_methods_20260920\\full_test\\TEST_RESULTS.json"
   }
 }

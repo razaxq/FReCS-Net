@@ -8,13 +8,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
-os.environ.setdefault('BETTERLVIT_EXPERIMENT', 'p9_race_pe')
+os.environ.setdefault('FRECSNET_EXPERIMENT', 'p9_race_pe')
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
 import Config as config
 from Load_Dataset import ImageToImage2D, RandomGenerator
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import read_text, WeightedDiceFocal, RACEObjective
 from race_pe_objective import RACEPEObjective
 
@@ -36,7 +36,7 @@ def main():
     # Model seed independent of architecture-specific data preparation.
     torch.manual_seed(config.seed)
     torch.cuda.manual_seed_all(config.seed)
-    model = BetterLViT(config.get_CTranS_config(), n_channels=3, n_classes=1,
+    model = FReCSNet(config.get_CTranS_config(), n_channels=3, n_classes=1,
         text_encoder_name=config.text_encoder_name, text_seq_len=config.text_max_len,
         use_lora=False).cuda().train()
     b = {key: value.cuda() for key, value in batch.items()}

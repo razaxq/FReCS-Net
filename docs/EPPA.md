@@ -185,7 +185,7 @@ skip features 训出来的分布**,直接加载 PLAM checkpoint 会让它们一�
 
 ```
 x        : [4, 256, 56, 56]      # skip_x 来自编码器
-text     : [4, 32, 768]          # 来自 BetterLViT.encode_text
+text     : [4, 32, 768]          # 来自 FReCSNet.encode_text
 
 # Channel attention
 avg_pool : [4, 256]              x.mean((2,3))

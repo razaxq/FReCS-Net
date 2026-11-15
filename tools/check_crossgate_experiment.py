@@ -14,12 +14,12 @@ from torchvision import transforms
 
 import Config as config
 from Load_Dataset import ImageToImage2D, RandomGenerator
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import WeightedDiceFocal, read_text
 
 
 def build_model():
-    return BetterLViT(
+    return FReCSNet(
         config.get_CTranS_config(),
         n_channels=config.n_channels,
         n_classes=config.n_labels,

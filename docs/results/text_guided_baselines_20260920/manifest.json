@@ -11,8 +11,8 @@
     "sub-S09395_ses-E22364_run-1_bp-chest_vp-ap_cr.png"
   ],
   "backbones": {
-    "vision": "/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface/hub/models--facebook--convnext-tiny-224/snapshots/6166b7613034066690a621d8bf25ffdf181a34f0",
-    "cxr": "/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface/hub/models--microsoft--BiomedVLP-CXR-BERT-specialized/snapshots/5157bdba1437a3aed316dacb1a5b68edf96b9902",
+    "vision": "{hf_cache}/hub/models--facebook--convnext-tiny-224/snapshots/6166b7613034066690a621d8bf25ffdf181a34f0",
+    "cxr": "{hf_cache}/hub/models--microsoft--BiomedVLP-CXR-BERT-specialized/snapshots/5157bdba1437a3aed316dacb1a5b68edf96b9902",
     "biomed": "/root/autodl-tmp/text_guided_baselines_20260920/backbones/biomedbert_pinned"
   },
   "runs": {

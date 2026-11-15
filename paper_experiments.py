@@ -281,7 +281,7 @@ def get_paper_experiment(name):
     if normalized not in PAPER_EXPERIMENTS:
         available = ", ".join(PAPER_EXPERIMENTS)
         raise ValueError(
-            "Unknown BETTERLVIT_EXPERIMENT={!r}. Available: {}".format(
+            "Unknown FRECSNET_EXPERIMENT={!r}. Available: {}".format(
                 name,
                 available,
             )

@@ -1,4 +1,4 @@
-# BetterLViT — Python 3.11, CUDA 12.8, RTX 5090 (Blackwell, sm_120)
+# FReCS-Net — Python 3.11, CUDA 12.8, RTX 5090 (Blackwell, sm_120)
 # Install with: pip install -r requirements.txt
 # For PyTorch with CUDA 12.8, use the official index:
 #   pip install --index-url https://download.pytorch.org/whl/cu128 torch torchvision

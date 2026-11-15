@@ -51,10 +51,9 @@ The fixed eight qualitative cases are user-selected, not a population estimate.
 
 The implementation integration starts at `561b8fa9489b71d9c3c222b7f4e70971c8556116`.
 Each archived result retains its original runtime SHA, tag and checkpoint hash.
-This integration does not retrain or re-evaluate models. Machine paths and local
-gallery URLs in historical records identify the original workspace and are not
-public downloads. [Import receipts](results/IMPORT_PROVENANCE.json) record exact
-hashes of the copied result snapshots. Weights and datasets are not bundled here.
+This integration does not retrain or re-evaluate models. The published tables use portable paths. The [import receipts](results/IMPORT_PROVENANCE.json)
+identify the original snapshot revision and list SHA-256 hashes for both the imported
+files and the published copies. Weights and datasets are not bundled here.
 
 FSDR is an alias of the existing implementation; `eppa` state-dict keys and
 historical architecture IDs remain unchanged. See [FSDR](FSDR.md).

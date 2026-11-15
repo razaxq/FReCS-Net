@@ -13,7 +13,7 @@ import torch
 from torch.utils.data import DataLoader
 import Config as config
 from Load_Dataset import ImageToImage2D, RandomGenerator
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import read_text, WeightedDiceFocal
 from training_recipe import recipe_metadata
 
@@ -42,7 +42,7 @@ def main():
     batch, names = next(iter(DataLoader(dataset, batch_size=16, num_workers=0)))
     torch.manual_seed(config.seed)
     torch.cuda.manual_seed_all(config.seed)
-    model = BetterLViT(config.get_CTranS_config(), use_lora=False,
+    model = FReCSNet(config.get_CTranS_config(), use_lora=False,
         text_encoder_name=config.text_encoder_name, text_seq_len=config.text_max_len).cuda().train()
     assert model.visual_prior is None
     initial_base = digest((n,p) for n,p in model.state_dict().items() if not n.startswith('visual_prior.'))

@@ -1,5 +1,5 @@
 """Six fixed missing-cell runs, gated on prior queue success, with Train-only preflights."""
-import argparse,fcntl,json,subprocess,sys,time,shutil
+import argparse,fcntl,json,os,subprocess,sys,time,shutil
 from pathlib import Path
 from run_cos_restart import write
 from cos_restart_protocol import validate_manifest,environment
@@ -50,15 +50,15 @@ def preflight(r,stage):
         if rc:raise RuntimeError('Preflight failed: '+str(path)+' '+path.read_text()[-3000:])
         return json.loads(next(line for line in reversed(path.read_text().splitlines()) if line.startswith('{')))
     records['checks']=execute('checks',[sys.executable,'tools/check_cos_restart.py'],env)
-    records['train_preflight']=execute('train_preflight',[sys.executable,'tools/preflight_stage1.py'],env)
+    probe = [sys.executable, str(Path(__file__).with_name('preflight_stage1.py').resolve()), '--seed', str(r['seed'])]
+    records['train_preflight']=execute('train_preflight',probe+['--reference-repo',str(repo),'--experiment',m['profile']],env)
     if r['configuration']=='CR2':
         reference=json.loads((Path('/root/autodl-tmp/stage1_overall_20260915/preflights')/('j2s'+str(r['seed'])+'.json')).read_text())['records']['train_preflight']
     else:
-        reference_repo=Path('/root/autodl-tmp/BetterLViT-stage1-development')
+        reference_repo=Path(os.environ.get('FRECSNET_STAGE1_REFERENCE', '/root/autodl-tmp/FReCS-Net-stage1-development'))
         reference_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference_repo,text=True).strip()
         assert reference_sha=='014f42cf084dab01ab4e771a511efcec84276261'
-        reference_env=dict(env,BETTERLVIT_EXPERIMENT='r2_single_cosine',BETTERLVIT_GIT_COMMIT=reference_sha)
-        reference=execute('reference',[sys.executable,'tools/preflight_stage1.py','--reference-repo',str(reference_repo)],reference_env)
+        reference=execute('reference',probe+['--reference-repo',str(reference_repo),'--experiment','r2_single_cosine'],env)
     assert all(reference[k]==records['train_preflight'][k] for k in ('initialization_sha256','output_sha256','loss')),'Same-seed reference mismatch'
     proof=dict(passed=True,source_git_commit=r['source_git_commit'],run_id=r['run_id'],records=records,reference=reference,historical_single_cosine_initialization_output_loss_identical=True,test_split_accessed=False)
     write(Path(r['preflight']),proof)

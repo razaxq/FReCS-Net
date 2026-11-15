@@ -1,10 +1,10 @@
-# BetterLViT — 相对于 vanilla LViT 的全部创新与改造
+# FReCS-Net — 相对于 vanilla LViT 的全部创新与改造
 
 > 文档目的: 给毕业论文写作直接引用. 涵盖 `eppa` 分支相对 `main`(vanilla LViT) 的所有架构改造、工程改进、超参数变化,
 > 包含每一项的动机、实现位置、设计取舍.
 > 所属分支: `eppa`
 > 基线分支: `main` (vanilla LViT 的本地 fork)
-> 文件覆盖: `Config.py`, `Load_Dataset.py`, `Train_one_epoch.py`, `nets/BetterLViT.py`, `nets/LViT.py`, `nets/eppa.py`,
+> 文件覆盖: `Config.py`, `Load_Dataset.py`, `Train_one_epoch.py`, `nets/frecs_net.py`, `nets/LViT.py`, `nets/eppa.py`,
 `nets/Vit.py`, `test_model.py`, `train_model.py`, `utils.py`
 
 ---
@@ -13,7 +13,7 @@
 
 | # | 创新                                                  | 类别 | 关键文件                                    | 状态                                                                    |
 |---|-----------------------------------------------------|----|-----------------------------------------|-----------------------------------------------------------------------|
-| 1 | **CXR-BERT 文本编码器 + LoRA** 替换原 `bert_embedding`      | 架构 | `nets/BetterLViT.py`, `Load_Dataset.py` | ✅ 已生效                                                                 |
+| 1 | **CXR-BERT 文本编码器 + LoRA** 替换原 `bert_embedding`      | 架构 | `nets/frecs_net.py`, `Load_Dataset.py` | ✅ 已生效                                                                 |
 | 2 | **FreqEPPA — 频率分解式注意力** 替换原 `PixLevelModule (PLAM)` | 架构 | `nets/eppa.py`, `nets/LViT.py`          | ✅ 已生效                                                                 |
 | 3 | 复合边界感知损失 `WeightedTverskyFocalBoundary`             | 监督 | `utils.py`                              | ⚠ **存在于 `eppa-boundary` 分支, 当前 `eppa` 分支未接入**; 训练仍用 `WeightedDiceBCE` |
 | 4 | 训练断点恢复 (resume from checkpoint)                     | 工程 | `train_model.py`, `Config.py`           | ✅ 已生效                                                                 |
@@ -55,7 +55,7 @@ expand 768→3072), `output.dense` (FFN contract 3072→768)。注意 PEFT 的 `
 ### 1.3 实现位置
 
 ```python
-# nets/BetterLViT.py:43-59
+# nets/frecs_net.py:43-59
 self.text_encoder = AutoModel.from_pretrained(
     text_encoder_name, trust_remote_code=True)
 
@@ -87,7 +87,7 @@ text_lora_target_modules = (
 - **隐藏维度 hardcoded 为 768**: `LViT.text_module4 = Conv1d(768, 512, ...)`. 任何文本编码器替换必须输出 768d, 否则需同步修改
   conv stack.
 - **序列长度通过 `text_seq_len` 串通**:
-  `Config.text_max_len → BetterLViT → LViT → VisionTransformer → CTBN3.in_channels`. 改 `text_max_len` 必须同步, 否则
+  `Config.text_max_len → FReCSNet → LViT → VisionTransformer → CTBN3.in_channels`. 改 `text_max_len` 必须同步, 否则
   `CTBN3.Conv1d` 形状不对会静默错位.
 - **`[CLS]` 用于通道注意力的语义条件**: 不切到 mean-pool, 因 CXR-BERT-specialized 的 `[CLS]` 在预训练时与图像对比对齐,
   且天然不含 `[PAD]` 污染.
@@ -96,7 +96,7 @@ text_lora_target_modules = (
 
 `Config.model_name` 提供三态:
 
-- `'BetterLViT'`: CXR-BERT + LoRA (主创新组)
+- `'FReCS-Net'`: 由实验配置 `text_use_lora` 决定是否启用 LoRA
 - `'LViT'`: CXR-BERT 全冻结 (无 LoRA, 仅看预训练表征本身的贡献)
 - `'LViT_pretrain'`: 加载 MoNuSeg 预训练 UNet 权重作为 warm-start
 
@@ -343,7 +343,7 @@ vanilla 训练脚本调用 `thop.profile(model, ...)` 计算 FLOPs. 但 thop 与
 
 ## 5. 超参数变更 (`Config.py`)
 
-| 字段                               | vanilla LViT (`main`)                               | BetterLViT (`eppa`)                        | 变化原因                                            |
+| 字段                               | vanilla LViT (`main`)                               | FReCS-Net (`eppa`)                        | 变化原因                                            |
 |----------------------------------|-----------------------------------------------------|--------------------------------------------|-------------------------------------------------|
 | `epochs`                         | 1000                                                | 200                                        | 实测 200 内已收敛, 1000 浪费云 GPU 时间 (commit `31bc66e`) |
 | `weight_decay`                   | (无)                                                 | `1e-4`                                     | 加 L2 正则降低过拟合 (commit `5742b5a`)                 |
@@ -364,10 +364,10 @@ vanilla 训练脚本调用 `thop.profile(model, ...)` 计算 FLOPs. 但 thop 与
 | LViT + CXR-BERT (frozen)              | CXR-BERT (frozen)                | PLAM                 | Dice + BCE             | _          | _         |
 | LViT + CXR-BERT + LoRA (q,v only)     | CXR-BERT + LoRA-qv (r=16)        | PLAM                 | Dice + BCE             | _          | _         |
 | LViT + CXR-BERT + LoRA (all 6)        | CXR-BERT + LoRA-all (r=16)       | PLAM                 | Dice + BCE             | _          | _         |
-| BetterLViT + EPPA-CBAM (failed)       | CXR-BERT + LoRA                  | EPPA-CBAM (gate=0)   | Dice + BCE             | 0.834      | 0.747     |
-| BetterLViT + EPPA-CBAM + gate=0.1     | CXR-BERT + LoRA                  | EPPA-CBAM (gate=0.1) | Dice + BCE             | (待跑)       | (待跑)      |
-| **BetterLViT + FreqEPPA**             | CXR-BERT + LoRA                  | **FreqEPPA**         | Dice + BCE             | (待跑)       | (待跑)      |
-| BetterLViT + FreqEPPA + Boundary loss | CXR-BERT + LoRA                  | FreqEPPA             | Tversky+Focal+Boundary | (待跑)       | (待跑)      |
+| FReCS-Net + EPPA-CBAM (failed)       | CXR-BERT + LoRA                  | EPPA-CBAM (gate=0)   | Dice + BCE             | 0.834      | 0.747     |
+| FReCS-Net + EPPA-CBAM + gate=0.1     | CXR-BERT + LoRA                  | EPPA-CBAM (gate=0.1) | Dice + BCE             | (待跑)       | (待跑)      |
+| **FReCS-Net + FreqEPPA**             | CXR-BERT + LoRA                  | **FreqEPPA**         | Dice + BCE             | (待跑)       | (待跑)      |
+| FReCS-Net + FreqEPPA + Boundary loss | CXR-BERT + LoRA                  | FreqEPPA             | Tversky+Focal+Boundary | (待跑)       | (待跑)      |
 
 中间两行 EPPA-CBAM 是**有价值的负面消融**, 论文里应保留, 用于支撑 §2.2 的 "x_sa ≤ x 衰减约束" 论证.
 
@@ -379,7 +379,7 @@ vanilla 训练脚本调用 `thop.profile(model, ...)` 计算 FLOPs. 但 thop 与
 Config.py          |  20 ++++-          (resume / lora / text_max_len)
 Load_Dataset.py    |  83 ++++++++++--   (HuggingFace tokenizer 替换)
 Train_one_epoch.py |  17 ++--           (text 改为 input_ids/attention_mask)
-nets/BetterLViT.py |  70 +++++++++++++++ (新文件, 见创新 1)
+nets/frecs_net.py |  70 +++++++++++++++ (新文件, 见创新 1)
 nets/LViT.py       |  65 +++++++-----   (UpblockAttention 接 EPPA, text_seq_len 串联)
 nets/Vit.py        |   6 +-             (CTBN3.in_channels 用 text_seq_len 参数)
 nets/eppa.py       | 134 ++++++++++++++ (新文件, 见创新 2)
@@ -397,7 +397,7 @@ utils.py           |  10 +--            (loss 仅 import 调整, 主体未变)
 
 1. **文本隐藏维度 = 768**. `LViT.text_module4 = Conv1d(768, 512, 3)`. 换文本编码器必须输出 768d.
 2. **`text_max_len` 串联**:
-   `Config.text_max_len → BetterLViT.__init__ → LViT.__init__ → VisionTransformer(text_seq_len=...) → Vit.CTBN3.in_channels`.
+   `Config.text_max_len → FReCSNet.__init__ → LViT.__init__ → VisionTransformer(text_seq_len=...) → Vit.CTBN3.in_channels`.
    不可单独改一个.
 3. **Sigmoid 在模型内**: `LViT.last_activation = nn.Sigmoid()`. 所有 loss 在概率域上计算, 不要换 BCEWithLogits.
 4. **EPPA 从零训练**. PLAM/EPPA-CBAM/FreqEPPA 的 state_dict 形状不兼容, resume_path 跨 EPPA 版本会失败.

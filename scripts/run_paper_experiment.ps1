@@ -20,7 +20,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$python = 'D:\Project\BetterLViT\.venv\Scripts\python.exe'
+$python = if ($env:FRECSNET_PYTHON) { $env:FRECSNET_PYTHON } else { Join-Path $repoRoot '.venv\Scripts\python.exe' }
 
 if (-not (Test-Path -LiteralPath $python)) {
     throw "Local AMD environment not found: $python"
@@ -37,11 +37,11 @@ if ($existing) {
     throw "A training process is already running:`n$details"
 }
 
-$env:BETTERLVIT_EXPERIMENT = $Experiment
-$env:BETTERLVIT_SEED = [string]$Seed
-$env:BETTERLVIT_EPOCHS = [string]$Epochs
-$env:BETTERLVIT_BATCH_SIZE = [string]$BatchSize
-$env:BETTERLVIT_VIS_FREQUENCY = '100000'
+$env:FRECSNET_EXPERIMENT = $Experiment
+$env:FRECSNET_SEED = [string]$Seed
+$env:FRECSNET_EPOCHS = [string]$Epochs
+$env:FRECSNET_BATCH_SIZE = [string]$BatchSize
+$env:FRECSNET_VIS_FREQUENCY = '100000'
 $env:HF_HUB_OFFLINE = '1'
 $env:TRANSFORMERS_OFFLINE = '1'
 $env:TOKENIZERS_PARALLELISM = 'false'
@@ -49,14 +49,14 @@ $env:TOKENIZERS_PARALLELISM = 'false'
 # solver at each fresh process start. This avoids multi-minute CPU-only first
 # batches and the unstable exhaustive-search path on Windows ROCm.
 $env:MIOPEN_FIND_MODE = 'FAST'
-$env:BETTERLVIT_DETERMINISTIC = '1'
-$env:BETTERLVIT_MIOPEN_ENABLED = '0'
-$env:BETTERLVIT_TRAIN_DROP_LAST = '1'
+$env:FRECSNET_DETERMINISTIC = '1'
+$env:FRECSNET_MIOPEN_ENABLED = '0'
+$env:FRECSNET_TRAIN_DROP_LAST = '1'
 if ($ResumePath) {
     $resolvedResumePath = (Resolve-Path -LiteralPath $ResumePath).Path
-    $env:BETTERLVIT_RESUME_PATH = $resolvedResumePath
+    $env:FRECSNET_RESUME_PATH = $resolvedResumePath
 } else {
-    Remove-Item Env:BETTERLVIT_RESUME_PATH -ErrorAction SilentlyContinue
+    Remove-Item Env:FRECSNET_RESUME_PATH -ErrorAction SilentlyContinue
 }
 
 Set-Location -LiteralPath $repoRoot

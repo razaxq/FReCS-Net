@@ -1,4 +1,4 @@
-# BetterLViT controlled paper ablation
+# FReCS-Net controlled paper ablation
 
 This branch deliberately replaces the open-ended V4 experiments with five
 pre-registered runs. The current canonical protocol runs on one RTX 4090D
@@ -20,7 +20,7 @@ formal profiles.
 A3 is an adaptation of the interaction principles described by FMISeg, not a
 claim to reproduce or rename its published dual-ConvNeXt architecture. It adds
 bidirectional low/high-frequency interaction and bidirectional visual/text
-interaction to BetterLViT decoder skips.
+interaction to FReCS-Net decoder skips.
 
 ## Locked protocol
 
@@ -49,7 +49,7 @@ interaction to BetterLViT decoder skips.
 Run the synthetic forward/backward check before every full experiment:
 
 ```bash
-/root/autodl-tmp/envs/betterlvit-paper/bin/python \
+python \
   tools/smoke_paper_profile.py --experiment b0_baseline --batch-size 16
 ```
 
@@ -63,6 +63,6 @@ After choosing the best checkpoint using validation Dice, evaluate it with the
 matching explicit profile:
 
 ```bash
-/root/autodl-tmp/envs/betterlvit-paper/bin/python \
+python \
   tools/evaluate_experiment.py --experiment b0_baseline --checkpoint <checkpoint>
 ```

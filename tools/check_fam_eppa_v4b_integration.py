@@ -15,12 +15,12 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 import Config as config  # noqa: E402
 from Load_Dataset import ImageToImage2D, RandomGenerator  # noqa: E402
-from nets.BetterLViT import BetterLViT  # noqa: E402
+from nets.frecs_net import FReCSNet  # noqa: E402
 from utils import WeightedDiceFocal, read_text  # noqa: E402
 
 
 def build_model():
-    return BetterLViT(
+    return FReCSNet(
         config.get_CTranS_config(),
         n_channels=config.n_channels,
         n_classes=config.n_labels,

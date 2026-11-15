@@ -32,6 +32,6 @@ J0 保留原版 PLAM 解码模块，但整套模型不是官方 LViT 的原样�
 
 - 实时服务器核查：server_audit.json；执行脚本：check_server.py。
 - 汇总：../stage1_overall_20260915/FINAL_REPORT.md、FINAL_RESULTS.json。
-- 本地源码：../../stage1_j0s1219_work/train_model.py、Config.py、nets/LViT.py、nets/Vit.py、nets/BetterLViT.py。
-- 既有划分记录：../../BetterLViT-Migrated/docs/RESEARCH_PROTOCOL_RESET_2026-08-16.md。
+- 本地源码：../../stage1_j0s1219_work/train_model.py、Config.py、nets/LViT.py、nets/Vit.py 和 CXR-BERT 模型实现。
+- 既有划分记录：迁移快照的 `docs/RESEARCH_PROTOCOL_RESET_2026-08-16.md`。
 - 官方来源：https://github.com/HUANGLIZI/LViT 。此次下载的当前 main 源码保存在 official/；未声称该版本是论文实际运行的精确提交。

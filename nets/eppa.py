@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Frequency-aligned PLAM-guided skip refinement for BetterLViT."""
+"""Frequency-aligned PLAM-guided skip refinement for FReCS-Net."""
 
 import math
 

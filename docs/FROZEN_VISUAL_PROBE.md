@@ -1,7 +1,7 @@
 # Frozen visual prior: first diagnostic, 2026-09-08
 
 Authorized after the 2026-09-08 research report. This is a fixed-view Train/Val
-feature-readout diagnostic, not a BetterLViT result or a new supervision method.
+feature-readout diagnostic, not a FReCS-Net result or a new supervision method.
 
 - Source base: C4 `add4908a0d6f702b0a10c4581725b535543829b8`.
 - Two pinned encoders: CXformer-S and DINOv2-with-registers-S; identical effective
@@ -14,7 +14,7 @@ feature-readout diagnostic, not a BetterLViT result or a new supervision method.
   existing equally weighted Dice/Focal. Same head seed1219, same sampler seed2220,
   AdamW lr3e-4, decay1e-4, batch16, drop_last on Train, 20 epochs, constant LR.
 - Select Best only by Val macro IoU, threshold0.5. Report paired per-image metrics
-  and both full histories. This head budget is not the planned BetterLViT adapter.
+  and both full histories. This head budget is not the planned FReCS-Net adapter.
 - Diagnose feature quality and preprocessor contract, not new segmentation SOTA.
   Choose CXformer if its Val IoU exceeds the matched natural-image encoder; if not,
   inspect the representation/contrast issue before selecting the full-run encoder.

@@ -35,19 +35,16 @@ def main():
     if subprocess.run(['pgrep','-f','[t]rain_model.py'], capture_output=True).returncode == 0:
         raise RuntimeError('Another full segmentation training is active')
     env = dict(os.environ)
-    env.update(BETTERLVIT_EXPERIMENT=manifest['profile'], BETTERLVIT_SEED=str(manifest['seed']),
-        BETTERLVIT_EPOCHS='80', BETTERLVIT_BATCH_SIZE='16', BETTERLVIT_TRAIN_DROP_LAST='1',
-        BETTERLVIT_NUM_WORKERS='4', BETTERLVIT_DETERMINISTIC='1', BETTERLVIT_CUDNN_ENABLED='1',
-        BETTERLVIT_VIS_FREQUENCY='100000', BETTERLVIT_GIT_COMMIT=commit,
-        BETTERLVIT_RESUME_PATH='',
-        BETTERLVIT_EPOCH_TIMING_PATH=str(args.run/'epoch_timing.jsonl'),
+    env.update(FRECSNET_EXPERIMENT=manifest['profile'], FRECSNET_SEED=str(manifest['seed']),
+        FRECSNET_EPOCHS='80', FRECSNET_BATCH_SIZE='16', FRECSNET_TRAIN_DROP_LAST='1',
+        FRECSNET_NUM_WORKERS='4', FRECSNET_DETERMINISTIC='1', FRECSNET_CUDNN_ENABLED='1',
+        FRECSNET_VIS_FREQUENCY='100000', FRECSNET_GIT_COMMIT=commit,
+        FRECSNET_RESUME_PATH='',
+        FRECSNET_EPOCH_TIMING_PATH=str(args.run/'epoch_timing.jsonl'),
         CUBLAS_WORKSPACE_CONFIG=':4096:8',
         PYTHONHASHSEED=str(manifest['seed']), TOKENIZERS_PARALLELISM='false',
-        TEST_SPLIT_ALLOWED='0', AUTO_TEST_EVALUATE='0', HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1',
-        HF_HOME='/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface',
-        HF_HUB_CACHE='/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface/hub',
-        HF_MODULES_CACHE='/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface/modules')
-    python = '/root/autodl-tmp/envs/betterlvit-paper/bin/python'
+        TEST_SPLIT_ALLOWED='0', AUTO_TEST_EVALUATE='0', HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1')
+    python = sys.executable
     state = {'source_git_commit':commit, 'repository':str(repo), 'run':str(args.run),
         'manifest':manifest,
         'started_unix':time.time(), 'phase':'training', 'test_split_accessed':False}
@@ -59,7 +56,7 @@ def main():
         write(args.run/'runtime.json', state)
         if rc:
             raise RuntimeError('Training failed: ' + str(rc))
-        bests = list((repo/'Covid19'/'BetterLViT'/manifest['profile']).glob('*/models/best_model-BetterLViT.pth.tar'))
+        bests = list((repo/'Covid19'/'FReCS-Net'/manifest['profile']).glob('*/models/best_model-FReCS-Net.pth.tar'))
         if len(bests) != 1:
             raise RuntimeError('Expected exactly one Best checkpoint in this frozen worktree')
         state.update(phase='validation', best_checkpoint=str(bests[0]))

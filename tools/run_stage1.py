@@ -27,7 +27,7 @@ def main():
             state['training_pid']=proc.pid;write(args.run/'runtime.json',state);rc=proc.wait()
         state.update(training_rc=rc,training_ended_unix=time.time(),training_pid=None)
         if rc:raise RuntimeError('Training failed: '+str(rc))
-        bests=list((repo/'Covid19'/'BetterLViT'/m['profile']).glob('*/models/best_model-BetterLViT.pth.tar'))
+        bests=list((repo/'Covid19'/'FReCS-Net'/m['profile']).glob('*/models/best_model-FReCS-Net.pth.tar'))
         assert len(bests)==1,'Expected one Best in new worktree'
         best=bests[0];state['best_checkpoint']=str(best)
         with best.open('rb') as f:state['best_checkpoint_sha256']=hashlib.file_digest(f,'sha256').hexdigest()

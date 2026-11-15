@@ -23,11 +23,11 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-os.environ["BETTERLVIT_EXPERIMENT"] = "p6_bcdh_r_v1"
+os.environ["FRECSNET_EXPERIMENT"] = "p6_bcdh_r_v1"
 
 import Config as config
 from Load_Dataset import ImageToImage2D, ValGenerator
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import read_text
 
 
@@ -53,7 +53,7 @@ def git_commit():
 
 
 def build_model():
-    return BetterLViT(
+    return FReCSNet(
         config.get_CTranS_config(),
         n_channels=config.n_channels,
         n_classes=config.n_labels,

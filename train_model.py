@@ -18,7 +18,7 @@ import Config as config
 from training_recipe import SingleCosineSchedule, recipe_metadata
 from Load_Dataset import RandomGenerator, ValGenerator, ImageToImage2D
 from Train_one_epoch import train_one_epoch
-from nets.BetterLViT import BetterLViT
+from nets.frecs_net import FReCSNet
 from utils import (
     BCDHObjective,
     CosineAnnealingWarmRestarts,
@@ -361,14 +361,14 @@ def main_loop(batch_size=config.batch_size, model_type='', tensorboard=True):
         )
     )
 
-    if model_type in ('LViT', 'BetterLViT'):
+    if model_type in ('LViT', 'FReCS-Net'):
         config_vit = config.get_CTranS_config()
         logger.info('transformer head num: {}'.format(config_vit.transformer.num_heads))
         logger.info('transformer layers num: {}'.format(config_vit.transformer.num_layers))
         logger.info('transformer expand ratio: {}'.format(config_vit.expand_ratio))
-        # 'LViT' = frozen CXR-BERT baseline, 'BetterLViT' = LoRA-tuned CXR-BERT
-        use_lora = config.text_use_lora and (model_type == 'BetterLViT')
-        model = BetterLViT(
+        # The LViT baseline freezes CXR-BERT. FReCS-Net follows the experiment's LoRA setting.
+        use_lora = config.text_use_lora and (model_type == 'FReCS-Net')
+        model = FReCSNet(
             config_vit,
             n_channels=config.n_channels,
             n_classes=config.n_labels,
@@ -386,7 +386,7 @@ def main_loop(batch_size=config.batch_size, model_type='', tensorboard=True):
         logger.info('transformer head num: {}'.format(config_vit.transformer.num_heads))
         logger.info('transformer layers num: {}'.format(config_vit.transformer.num_layers))
         logger.info('transformer expand ratio: {}'.format(config_vit.expand_ratio))
-        model = BetterLViT(
+        model = FReCSNet(
             config_vit,
             n_channels=config.n_channels,
             n_classes=config.n_labels,
@@ -665,7 +665,7 @@ def main_loop(batch_size=config.batch_size, model_type='', tensorboard=True):
                     val_loss, max_dice, best_epoch, epoch_history, is_best=True,
                     train_generator=train_generator, val_generator=val_generator)
                 save_checkpoint(best_state, config.model_path)
-                bark_notify(f"Best {config.selection_metric} checkpoint updated", title="BetterLViT")
+                bark_notify(f"Best {config.selection_metric} checkpoint updated", title="FReCS-Net")
         else:
             logger.info('\t No {} improvement; selected epoch {}'.format(config.selection_metric, best_epoch))
         early_stopping_count = epoch - best_epoch + 1
@@ -919,7 +919,7 @@ def main_loop(batch_size=config.batch_size, model_type='', tensorboard=True):
 
         # Local epoch telemetry permits a single early completion forecast. It
         # observes normal training boundaries without changing RNG or tensors.
-        timing_path = os.environ.get('BETTERLVIT_EPOCH_TIMING_PATH')
+        timing_path = os.environ.get('FRECSNET_EPOCH_TIMING_PATH')
         if timing_path:
             timing = {
                 'epoch': epoch + 1, 'epochs': config.epochs,

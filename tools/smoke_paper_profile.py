@@ -48,13 +48,13 @@ def main():
     args = parse_args()
     if args.batch_size <= 0:
         raise ValueError("batch size must be positive")
-    os.environ["BETTERLVIT_EXPERIMENT"] = args.experiment
+    os.environ["FRECSNET_EXPERIMENT"] = args.experiment
     os.environ.setdefault("HF_HUB_OFFLINE", "1")
     os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
     import Config as config
-    from nets.BetterLViT import BetterLViT
+    from nets.frecs_net import FReCSNet
     from utils import (
         BCDHObjective,
         DualHeadMaskObjective,
@@ -78,7 +78,7 @@ def main():
         raise RuntimeError("A CUDA-capable PyTorch environment is required.")
     device = torch.device("cpu" if args.cpu else "cuda")
 
-    model = BetterLViT(
+    model = FReCSNet(
         config.get_CTranS_config(),
         n_channels=config.n_channels,
         n_classes=config.n_labels,

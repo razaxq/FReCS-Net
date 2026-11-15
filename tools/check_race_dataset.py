@@ -10,7 +10,7 @@ import torch
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-os.environ.setdefault("BETTERLVIT_EXPERIMENT", "p8_race_fuse_v1")
+os.environ.setdefault("FRECSNET_EXPERIMENT", "p8_race_fuse_v1")
 
 import Config as config  # noqa: E402
 from Load_Dataset import ImageToImage2D, RandomGenerator  # noqa: E402

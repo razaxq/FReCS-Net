@@ -29,26 +29,26 @@ fail() {
 latest_best() {
   local repo="$1"
   local experiment="$2"
-  find "$repo/Covid19/BetterLViT/$experiment" -type f \
-    -name 'best_model-BetterLViT.pth.tar' -printf '%T@|%p\n' \
+  find "$repo/Covid19/FReCS-Net/$experiment" -type f \
+    -name 'best_model-FReCS-Net.pth.tar' -printf '%T@|%p\n' \
     | sort -n | tail -1 | cut -d'|' -f2-
 }
 configure_env() {
   local experiment="$1"
   local sha="$2"
-  export BETTERLVIT_EXPERIMENT="$experiment"
-  export BETTERLVIT_SEED="$seed"
-  export BETTERLVIT_EPOCHS="$epochs"
-  export BETTERLVIT_BATCH_SIZE="$batch_size"
-  export BETTERLVIT_TRAIN_DROP_LAST=1
-  export BETTERLVIT_NUM_WORKERS=4
-  export BETTERLVIT_DETERMINISTIC=1
-  export BETTERLVIT_CUDNN_ENABLED=1
-  export BETTERLVIT_VIS_FREQUENCY=100000
-  export BETTERLVIT_GIT_COMMIT="$sha"
+  export FRECSNET_EXPERIMENT="$experiment"
+  export FRECSNET_SEED="$seed"
+  export FRECSNET_EPOCHS="$epochs"
+  export FRECSNET_BATCH_SIZE="$batch_size"
+  export FRECSNET_TRAIN_DROP_LAST=1
+  export FRECSNET_NUM_WORKERS=4
+  export FRECSNET_DETERMINISTIC=1
+  export FRECSNET_CUDNN_ENABLED=1
+  export FRECSNET_VIS_FREQUENCY=100000
+  export FRECSNET_GIT_COMMIT="$sha"
   export CUBLAS_WORKSPACE_CONFIG=:4096:8
   export PYTHONHASHSEED="$seed"
-  export HF_HOME="${BETTERLVIT_HF_HOME:-/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface}"
+  export HF_HOME="${HF_HOME:-${XDG_CACHE_HOME:-$HOME/.cache}/huggingface}"
   export HF_HUB_CACHE="$HF_HOME/hub"
   export HF_MODULES_CACHE="$HF_HOME/modules"
   export HF_HUB_OFFLINE=1
@@ -58,7 +58,7 @@ configure_env() {
 
 mkdir -p "$output_dir" "$(dirname "$status_file")"
 write_status starting
-exec 9>/root/autodl-tmp/betterlvit_cdrr_pair.lock
+exec 9>/root/autodl-tmp/frecsnet_cdrr_pair.lock
 flock -n 9 || fail lock_unavailable
 [ "$(git -C "$c2_repo" rev-parse HEAD)" = "$c2_sha" ] || fail c2_commit_mismatch
 [ "$(git -C "$p7_repo" rev-parse HEAD)" = "$p7_sha" ] || fail p7_commit_mismatch

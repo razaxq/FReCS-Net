@@ -5,7 +5,7 @@ from transformers import AutoModel
 from .LViT import LViT
 
 
-class BetterLViT(LViT):
+class FReCSNet(LViT):
     """LViT with a modern medical text encoder (CXR-BERT-specialized) replacing
     the legacy bert-embedding pipeline. The text encoder produces
     [B, seq_len, 768] sequence embeddings that flow into the existing

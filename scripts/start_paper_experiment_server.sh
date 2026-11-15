@@ -5,7 +5,7 @@ experiment="${1:-b0_baseline}"
 seed="${2:-1219}"
 epochs="${3:-150}"
 batch_size="${4:-16}"
-evaluation_batch_size="${BETTERLVIT_EVAL_BATCH_SIZE:-16}"
+evaluation_batch_size="${FRECSNET_EVAL_BATCH_SIZE:-16}"
 
 case "$experiment" in
   b0_baseline|a0_lora|a1_lora_focal|a2_lora_freq|a3_lora_fmiseg|a4_lora_freq_focal|a9_frozen_freq_focal) ;;
@@ -13,12 +13,12 @@ case "$experiment" in
 esac
 
 if ! [[ "$evaluation_batch_size" =~ ^[1-9][0-9]*$ ]]; then
-  echo "BETTERLVIT_EVAL_BATCH_SIZE must be a positive integer." >&2
+  echo "FRECSNET_EVAL_BATCH_SIZE must be a positive integer." >&2
   exit 2
 fi
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-python_bin="${BETTERLVIT_PYTHON:-/root/autodl-tmp/envs/betterlvit-paper/bin/python}"
+python_bin="${FRECSNET_PYTHON:-python}"
 runtime_dir="$repo_root/runtime_logs"
 lock_file="$runtime_dir/training.lock"
 runner="$repo_root/scripts/run_train_then_evaluate_server.sh"
@@ -44,19 +44,19 @@ evaluation_stderr="$runtime_dir/eval_${experiment}_${timestamp}.stderr.log"
 evaluation_status="$runtime_dir/eval_${experiment}_${timestamp}.status"
 metadata="$runtime_dir/paper_experiment_current.env"
 
-export BETTERLVIT_EXPERIMENT="$experiment"
-export BETTERLVIT_SEED="$seed"
-export BETTERLVIT_EPOCHS="$epochs"
-export BETTERLVIT_BATCH_SIZE="$batch_size"
-export BETTERLVIT_TRAIN_DROP_LAST=1
-export BETTERLVIT_NUM_WORKERS=4
-export BETTERLVIT_DETERMINISTIC=1
-export BETTERLVIT_CUDNN_ENABLED=1
-export BETTERLVIT_VIS_FREQUENCY=100000
+export FRECSNET_EXPERIMENT="$experiment"
+export FRECSNET_SEED="$seed"
+export FRECSNET_EPOCHS="$epochs"
+export FRECSNET_BATCH_SIZE="$batch_size"
+export FRECSNET_TRAIN_DROP_LAST=1
+export FRECSNET_NUM_WORKERS=4
+export FRECSNET_DETERMINISTIC=1
+export FRECSNET_CUDNN_ENABLED=1
+export FRECSNET_VIS_FREQUENCY=100000
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export PYTHONHASHSEED="$seed"
-export BETTERLVIT_GIT_COMMIT="$(git -C "$repo_root" rev-parse HEAD)"
-export HF_HOME="${BETTERLVIT_HF_HOME:-/root/autodl-fs/betterlvit_5090_migration/root_cache/huggingface}"
+export FRECSNET_GIT_COMMIT="$(git -C "$repo_root" rev-parse HEAD)"
+export HF_HOME="${HF_HOME:-${XDG_CACHE_HOME:-$HOME/.cache}/huggingface}"
 export HF_HUB_CACHE="$HF_HOME/hub"
 export HF_MODULES_CACHE="$HF_HOME/modules"
 export HF_HUB_OFFLINE=1
@@ -88,7 +88,7 @@ EXPERIMENT=$experiment
 SEED=$seed
 EPOCHS=$epochs
 BATCH_SIZE=$batch_size
-GIT_COMMIT=$BETTERLVIT_GIT_COMMIT
+GIT_COMMIT=$FRECSNET_GIT_COMMIT
 DETERMINISTIC=1
 CUDNN_ENABLED=1
 TRAIN_DROP_LAST=1

@@ -111,4 +111,4 @@ Dice配对增量，单位为百分点：
 
 ## HF备份完成（2026-09-19）
 
-12/12模型已按源码短hash上传到razaxq/BetterLViT，60/60文件经服务器和本机独立列表核验大小与Xet哈希。全部源文件保留。详见[hf_backup_20260919/REPORT.md](hf_backup_20260919/REPORT.md)及HF_UPLOAD_VERIFIED.json。
+12/12模型已按源码短hash上传到razaxq/FReCS-Net，60/60文件经服务器和本机独立列表核验大小与Xet哈希。全部源文件保留。详见[hf_backup_20260919/REPORT.md](hf_backup_20260919/REPORT.md)及HF_UPLOAD_VERIFIED.json。
